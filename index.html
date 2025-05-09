@@ -31,17 +31,51 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    audio {
-      margin-top: 30px;
+    .button {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #ff3385;
     }
   </style>
 </head>
 <body>
   <h1>🎂 생일 축하해, OO야! 🎉</h1>
-  <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래잉 ✨</div>
-  <audio controls autoplay>
-    <source src="birthday_song.mp3" type="audio/mp3">
+  <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
+
+  <!-- 음악을 버튼으로 선택하게 하기 -->
+  <div>
+    <button class="button" onclick="playSong('happy_birthday.mp3')">Happy Birthday 🎶</button>
+    <button class="button" onclick="playSong('10cm_birthday.mp3')">10cm의 생일 축하해 🎤</button>
+    <button class="button" onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder 🎵</button>
+  </div>
+
+  <!-- 오디오 플레이어 -->
+  <audio id="audioPlayer" controls>
+    <source id="audioSource" src="" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
+
+  <script>
+    function playSong(song) {
+      // 오디오 플레이어에 새로운 곡 로드
+      var audioPlayer = document.getElementById('audioPlayer');
+      var audioSource = document.getElementById('audioSource');
+      
+      // GitHub에 올려놓은 mp3 파일의 URL을 설정
+      audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
+
+      // 새로운 곡 로드 후 재생
+      audioPlayer.load();
+      audioPlayer.play();
+    }
+  </script>
 </body>
 </html>
