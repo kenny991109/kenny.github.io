@@ -6,88 +6,112 @@
   <style>
     body {
       margin: 0;
-      background: linear-gradient(#ffe6f0, #fff);
-      text-align: center;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
       font-family: 'Pretendard', sans-serif;
-      padding: 50px;
-      position: relative;
+      color: #444;
     }
+
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 40px 30px;
+      background-color: #fffafa;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      text-align: center;
+    }
+
     h1 {
-      font-size: 3em;
+      font-size: 2.8em;
+      margin-bottom: 20px;
       animation: fadeIn 2s ease-in-out;
     }
+
     #message {
-      font-size: 1.2em;
-      margin-top: 20px;
+      font-size: 1.3em;
+      margin: 20px 0 40px;
       animation: typing 4s steps(40, end);
       white-space: nowrap;
       overflow: hidden;
       border-right: 3px solid pink;
     }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+
     .main-button {
-      padding: 10px 20px;
-      margin: 30px auto;
+      padding: 12px 25px;
       background-color: #ff66b2;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
+      border-radius: 8px;
+      font-size: 1.1em;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
+
     .main-button:hover {
       background-color: #ff3385;
     }
+
     .music-buttons {
       position: absolute;
       top: 20px;
       right: 20px;
     }
+
     .music-buttons button {
-      background-color: #ffcce0;
+      background-color: #ffe0ec;
       color: #ff3385;
       border: none;
-      border-radius: 3px;
-      padding: 5px 10px;
+      border-radius: 5px;
+      padding: 6px 12px;
       margin-left: 5px;
-      font-size: 0.8em;
+      font-size: 0.9em;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
+
     .music-buttons button:hover {
       background-color: #ffb3d9;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <!-- 우측 상단 음악 버튼 -->
+  <!-- 우측 상단 음악 선택 -->
   <div class="music-buttons">
     <button onclick="playSong('happy_birthday.mp3')">🎵 Happy</button>
     <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
     <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie</button>
   </div>
 
-  <h1>🎂 생일 축하해, OO야! 🎉</h1>
-  <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
+  <!-- 메인 컨텐츠 박스 -->
+  <div class="container">
+    <h1>🎂 생일 축하해, OO야! 🎉</h1>
+    <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
-  <!-- 감정 테스트 버튼 -->
-  <div>
-    <a href="moodTest.html">
-      <button class="main-button">오늘의 기분 테스트 😊</button>
-    </a>
-  </div>
-
-  <!-- AI 감정 챗봇 버튼 -->
-  <div>
-    <a href="chatbot.html">
-      <button class="main-button">AI 감정 챗봇 💬</button>
-    </a>
+    <div class="button-group">
+      <a href="moodTest.html">
+        <button class="main-button">오늘의 기분 테스트 😊</button>
+      </a>
+      <a href="chatbot.html">
+        <button class="main-button">AI 감정 챗봇 💬</button>
+      </a>
+    </div>
   </div>
 
   <!-- 숨겨진 오디오 플레이어 -->
@@ -98,9 +122,8 @@
 
   <script>
     function playSong(song) {
-      var audioPlayer = document.getElementById('audioPlayer');
-      var audioSource = document.getElementById('audioSource');
-
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
       audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
       audioPlayer.load();
       audioPlayer.play();
