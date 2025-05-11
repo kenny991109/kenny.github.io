@@ -112,8 +112,8 @@
     /* 홈 버튼 스타일 */
     .home-button {
       position: absolute;
-      top: 20px;
-      left: 20px;
+      bottom: 20px;
+      right: 20px;
       padding: 10px 15px;
       background-color: #ff66b2;
       color: white;
@@ -127,6 +127,12 @@
     .home-button:hover {
       background-color: #ff3385;
     }
+
+    /* 기분 다시 확인하기 버튼 */
+    #retryButton {
+      margin-top: 20px;
+      display: none; /* 기분을 확인하기 전에는 보이지 않도록 설정 */
+    }
   </style>
 </head>
 <body>
@@ -136,7 +142,7 @@
   <div class="bg-deco bg3"></div>
 
   <!-- 홈 버튼 -->
-  <button class="home-button" onclick="window.location.href='index.html'">홈</button>
+  <button class="home-button" onclick="window.location.href='index.html'">홈으로</button>
 
   <h1>오늘의 기분은?</h1>
 
@@ -144,7 +150,7 @@
   <button class="button" id="checkMoodButton" onclick="getMood()">기분을 확인해보세요!</button>
 
   <!-- 기분 확인 후에만 나타날 기분 다시 확인하기 버튼 -->
-  <button class="button" id="retryButton" onclick="getMood()" style="display: none;">기분 다시 확인하기</button>
+  <button class="button" id="retryButton" onclick="getMood()">기분 다시 확인하기</button>
 
   <div id="character" class="character"></div>
 
