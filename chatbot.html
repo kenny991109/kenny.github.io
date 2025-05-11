@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>감성 챗봇</title>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #fff0f5;
+      padding: 20px;
+      text-align: center;
+    }
+    #chat-container {
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .message {
+      margin: 10px 0;
+      text-align: left;
+    }
+    .user {
+      color: #333;
+      font-weight: bold;
+    }
+    .bot {
+      color: #ff66b2;
+      margin-left: 10px;
+    }
+    #input-area {
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff3385;
+    }
+  </style>
+</head>
+<body>
+  <h1>💬 감성 챗봇</h1>
+  <div id="chat-container">
+    <div id="chat-box"></div>
+    <div id="input-area">
+      <input type="text" id="user-input" placeholder="메시지를 입력하세요..." />
+      <button onclick="sendMessage()">보내기</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const chatBox = document.getElementById('chat-box');
+      const userMessage = input.value.trim();
+      if (!userMessage) return;
+
+      // 사용자 메시지 표시
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user';
+      userDiv.textContent = '너: ' + userMessage;
+      chatBox.appendChild(userDiv);
+
+      // 챗봇 응답
+      const botDiv = document.createElement('div');
+      botDiv.className = 'message bot';
+      botDiv.textContent = '봇: ' + generateReply(userMessage);
+      chatBox.appendChild(botDiv);
+
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function generateReply(message) {
+      message = message.toLowerCase();
+
+      if (message.includes('슬퍼') || message.includes('우울')) return '괜찮아, 내가 옆에 있어줄게 💕';
+      if (message.includes('행복') || message.includes('기뻐')) return '행복하다니 나도 기뻐 😊';
+      if (message.includes('화나') || message.includes('짜증')) return '그럴 땐 심호흡이 좋아요. 후~ 😤';
+      if (message.includes('고마워')) return '천만에요! 당신은 소중한 사람이에요 💖';
+      if (message.includes('사랑')) return '사랑은 참 아름다운 감정이죠 💞';
+      if (message.includes('힘들')) return '힘들 땐 잠깐 쉬어도 괜찮아요 🌿';
+      return '그렇구나! 더 이야기해줘 ✨';
+    }
+  </script>
+</body>
+</html>
