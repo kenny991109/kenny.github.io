@@ -29,19 +29,51 @@
       background-color: #ff3385;
     }
     .character {
-      margin-top: 30px;
-      font-size: 2em;
-      transition: transform 1s;
+      margin-top: 40px;
+      font-size: 1.5em;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.8s ease;
     }
-    img {
+    .character.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .character-card {
+      display: inline-block;
+      background: #fff;
+      border: 2px solid #ffcce5;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .character img {
       max-width: 200px;
-      transition: transform 1s;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      animation: pop 0.6s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    .character p {
+      font-size: 1.4em;
+      color: #ff3399;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <h1>오늘의 기분은?</h1>
   <button class="button" onclick="getMood()">기분을 확인해보세요!</button>
+
   <div id="character" class="character"></div>
 
   <script>
@@ -56,20 +88,19 @@
         { name: '부럽이', img: '부럽이.png' },
         { name: '당황이', img: '당황이.png' },
         { name: '따분이', img: '따분이.png' }
-        
       ];
 
       const randomIndex = Math.floor(Math.random() * characters.length);
       const character = characters[randomIndex];
 
       const characterDiv = document.getElementById('character');
-      characterDiv.innerHTML = `<img src="${character.img}" alt="${character.name}"><p>오늘의 기분은 ${character.name} !</p>`;
-      
-      const img = document.querySelector('#character img');
-      img.style.transform = 'scale(1.2)';
-      setTimeout(() => {
-        img.style.transform = 'scale(1)';
-      }, 1000);
+      characterDiv.innerHTML = `
+        <div class="character-card">
+          <img src="${character.img}" alt="${character.name}">
+          <p>오늘의 기분은 <strong>${character.name}</strong>예요! 💫</p>
+        </div>
+      `;
+      characterDiv.classList.add('show');
     }
   </script>
 </body>
