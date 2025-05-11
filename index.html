@@ -14,13 +14,13 @@
       overflow-x: hidden;
     }
 
-    /* 벚꽃 잎 스타일 */
-    .sakura {
+    /* 꽃잎 애니메이션 */
+    .flower {
       position: fixed;
       top: -50px;
-      width: 20px;
-      height: 20px;
-      background-image: url('https://cdn-icons-png.flaticon.com/512/765/765341.png');
+      width: 30px;
+      height: 30px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2917/2917242.png');
       background-size: contain;
       background-repeat: no-repeat;
       opacity: 0.8;
@@ -185,19 +185,19 @@
   </style>
 </head>
 <body>
-  <!-- 벚꽃 애니메이션 -->
+  <!-- 꽃잎 애니메이션 -->
   <script>
-    function createSakura() {
-      const sakura = document.createElement('div');
-      sakura.classList.add('sakura');
-      sakura.style.left = Math.random() * window.innerWidth + 'px';
-      sakura.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      sakura.style.opacity = Math.random() * 0.8 + 0.2;
-      document.body.appendChild(sakura);
-      setTimeout(() => sakura.remove(), 10000);
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.style.left = Math.random() * window.innerWidth + 'px';
+      flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      flower.style.opacity = Math.random() * 0.8 + 0.2;
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 10000);
     }
 
-    setInterval(createSakura, 300);
+    setInterval(createFlower, 300);
   </script>
 
   <!-- 네비게이션 -->
