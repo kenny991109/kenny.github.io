@@ -65,19 +65,72 @@
   </div>
 
   <script>
+    // 감정 키워드 사전
+    const emotionKeywords = {
+      '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐'],
+      '기쁨': ['행복', '기뻐', '좋아', '즐거', '웃어'],
+      '분노': ['화나', '짜증', '열받', '짜증나', '미워'],
+      '감사': ['고마워', '감사', '덕분'],
+      '사랑': ['사랑', '보고싶', '그리워', '소중'],
+      '불안': ['불안', '걱정', '긴장', '초조']
+    };
+
+    // 감정 감지 함수
+    function detectEmotion(message) {
+      const scores = {};
+      for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
+        scores[emotion] = keywords.reduce((acc, word) => {
+          return acc + (message.includes(word) ? 1 : 0);
+        }, 0);
+      }
+
+      let maxScore = 0;
+      let detected = '기타';
+      for (const [emotion, score] of Object.entries(scores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          detected = emotion;
+        }
+      }
+
+      return detected;
+    }
+
+    // 응답 생성 함수
+    function generateReply(message) {
+      message = message.toLowerCase();
+      const emotion = detectEmotion(message);
+
+      switch (emotion) {
+        case '슬픔':
+          return '괜찮아, 내가 옆에 있어줄게 💕';
+        case '기쁨':
+          return '행복하다니 나도 기뻐 😊';
+        case '분노':
+          return '그럴 땐 심호흡이 좋아요. 후~ 😤';
+        case '감사':
+          return '천만에요! 당신은 소중한 사람이에요 💖';
+        case '사랑':
+          return '사랑은 참 아름다운 감정이죠 💞';
+        case '불안':
+          return '불안할 땐 잠시 멈추고 숨을 크게 쉬어봐요 🌿';
+        default:
+          return '그렇구나! 더 이야기해줘 ✨';
+      }
+    }
+
+    // 메시지 전송 및 표시
     function sendMessage() {
       const input = document.getElementById('user-input');
       const chatBox = document.getElementById('chat-box');
       const userMessage = input.value.trim();
       if (!userMessage) return;
 
-      // 사용자 메시지 표시
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
       userDiv.textContent = '너: ' + userMessage;
       chatBox.appendChild(userDiv);
 
-      // 챗봇 응답
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
       botDiv.textContent = '봇: ' + generateReply(userMessage);
@@ -85,18 +138,6 @@
 
       input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function generateReply(message) {
-      message = message.toLowerCase();
-
-      if (message.includes('슬퍼') || message.includes('우울')) return '괜찮아, 내가 옆에 있어줄게 💕';
-      if (message.includes('행복') || message.includes('기뻐')) return '행복하다니 나도 기뻐 😊';
-      if (message.includes('화나') || message.includes('짜증')) return '그럴 땐 심호흡이 좋아요. 후~ 😤';
-      if (message.includes('고마워')) return '천만에요! 당신은 소중한 사람이에요 💖';
-      if (message.includes('사랑')) return '사랑은 참 아름다운 감정이죠 💞';
-      if (message.includes('힘들')) return '힘들 땐 잠깐 쉬어도 괜찮아요 🌿';
-      return '그렇구나! 더 이야기해줘 ✨';
     }
   </script>
 </body>
