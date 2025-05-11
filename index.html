@@ -2,82 +2,139 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>생일 축하해 💖</title>
+  <title>수현이 생일 축하해 💖</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      background: linear-gradient(to bottom, #ffe6f0, #fff);
       font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
       color: #444;
     }
 
+    nav {
+      background-color: #ff66b2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      color: white;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    .menu {
+      position: relative;
+    }
+
+    .menu button {
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background-color: white;
+      color: #ff66b2;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #ff66b2;
+      font-weight: bold;
+    }
+
+    .dropdown a:hover {
+      background-color: #ffe0ec;
+    }
+
+    .menu:hover .dropdown {
+      display: block;
+    }
+
     .container {
-      max-width: 600px;
-      margin: 80px auto;
-      padding: 40px 30px;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
       background-color: #fffafa;
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
       text-align: center;
     }
 
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     #message {
-      font-size: 1.3em;
-      margin: 20px 0 40px;
+      font-size: 1.2em;
+      margin: 20px 0 30px;
       animation: typing 4s steps(40, end);
       white-space: nowrap;
       overflow: hidden;
       border-right: 3px solid pink;
     }
 
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      align-items: center;
+    .music-section {
+      margin: 30px 0;
     }
 
-    .main-button {
-      padding: 12px 25px;
-      background-color: #ff66b2;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.1em;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .main-button:hover {
-      background-color: #ff3385;
-    }
-
-    .music-buttons {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
-    .music-buttons button {
+    .music-section button {
       background-color: #ffe0ec;
       color: #ff3385;
       border: none;
       border-radius: 5px;
-      padding: 6px 12px;
-      margin-left: 5px;
-      font-size: 0.9em;
+      padding: 8px 15px;
+      margin: 5px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
 
-    .music-buttons button:hover {
+    .music-section button:hover {
       background-color: #ffb3d9;
+    }
+
+    .photo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .photo-gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9em;
     }
 
     @keyframes typing {
@@ -92,33 +149,50 @@
   </style>
 </head>
 <body>
-  <!-- 우측 상단 음악 선택 -->
-  <div class="music-buttons">
-    <button onclick="playSong('happy_birthday.mp3')">🎵 Happy</button>
-    <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
-    <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie</button>
-  </div>
+  <!-- 네비게이션 -->
+  <nav>
+    <h1>🎉 수현이의 생일 홈</h1>
+    <div class="menu">
+      <button>메뉴 ▾</button>
+      <div class="dropdown">
+        <a href="index.html">홈으로</a>
+        <a href="moodTest.html">기분 테스트 😊</a>
+        <a href="chatbot.html">AI 감정 챗봇 💬</a>
+      </div>
+    </div>
+  </nav>
 
-  <!-- 메인 컨텐츠 박스 -->
+  <!-- 메인 콘텐츠 -->
   <div class="container">
-    <h1>🎂 생일 축하해, 수현아! 🎉</h1>
+    <h2>🎂 생일 축하해, 수현아!</h2>
     <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
-    <div class="button-group">
-      <a href="moodTest.html">
-        <button class="main-button">오늘의 기분 테스트 😊</button>
-      </a>
-      <a href="chatbot.html">
-        <button class="main-button">AI 감정 챗봇 💬</button>
-      </a>
+    <!-- 음악 선택 -->
+    <div class="music-section">
+      <p>🎵 생일 기념 음악을 골라봐!</p>
+      <button onclick="playSong('happy_birthday.mp3')">Happy</button>
+      <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
+      <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
+    </div>
+
+    <!-- 추억 사진 섹션 -->
+    <div class="photo-gallery">
+      <img src="https://placekitten.com/200/200" alt="기억1">
+      <img src="https://placekitten.com/201/200" alt="기억2">
+      <img src="https://placekitten.com/202/200" alt="기억3">
+      <!-- 실제 사진 URL로 교체 가능 -->
     </div>
   </div>
 
-  <!-- 숨겨진 오디오 플레이어 -->
+  <!-- 오디오 -->
   <audio id="audioPlayer" style="display:none">
     <source id="audioSource" src="" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
+
+  <footer>
+    © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
+  </footer>
 
   <script>
     function playSong(song) {
