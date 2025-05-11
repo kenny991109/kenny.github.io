@@ -15,6 +15,7 @@
       color: #444;
     }
 
+    /* 네비게이션 바 */
     nav {
       background-color: #ff66b2;
       display: flex;
@@ -22,6 +23,9 @@
       align-items: center;
       padding: 15px 30px;
       color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     nav h1 {
@@ -29,46 +33,32 @@
       font-size: 1.5em;
     }
 
-    .menu {
-      position: relative;
+    .nav-links {
+      display: flex;
+      gap: 25px;
     }
 
-    .menu button {
-      background-color: #ff66b2;
+    .nav-links a {
       color: white;
-      border: none;
-      font-size: 1em;
-      cursor: pointer;
-      padding: 10px;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 45px;
-      background-color: white;
-      color: #ff66b2;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      border-radius: 5px;
-      overflow: hidden;
-      z-index: 100;
-    }
-
-    .dropdown a {
-      display: block;
-      padding: 10px 20px;
       text-decoration: none;
-      color: #ff66b2;
       font-weight: bold;
+      position: relative;
+      padding: 5px;
     }
 
-    .dropdown a:hover {
-      background-color: #ffe0ec;
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s;
     }
 
-    .menu:hover .dropdown {
-      display: block;
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .container {
@@ -146,19 +136,30 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- 네비게이션 -->
   <nav>
     <h1>🎉 수현이의 생일 홈</h1>
-    <div class="menu">
-      <button>메뉴 ▾</button>
-      <div class="dropdown">
-        <a href="index.html">홈으로</a>
-        <a href="moodTest.html">기분 테스트 😊</a>
-        <a href="chatbot.html">AI 감정 챗봇 💬</a>
-      </div>
+    <div class="nav-links">
+      <a href="index.html">홈</a>
+      <a href="moodTest.html">기분 테스트 😊</a>
+      <a href="chatbot.html">AI 감정 챗봇 💬</a>
     </div>
   </nav>
 
@@ -180,7 +181,6 @@
       <img src="https://placekitten.com/200/200" alt="기억1">
       <img src="https://placekitten.com/201/200" alt="기억2">
       <img src="https://placekitten.com/202/200" alt="기억3">
-      <!-- 실제 사진 URL로 교체 가능 -->
     </div>
   </div>
 
