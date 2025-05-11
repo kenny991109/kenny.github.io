@@ -55,7 +55,7 @@
   </style>
 </head>
 <body>
-  <h1>💬 감성 챗봇</h1>
+  <h1>💬 AI 건희희봇</h1>
   <div id="chat-container">
     <div id="chat-box"></div>
     <div id="input-area">
@@ -128,12 +128,12 @@
 
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
-      userDiv.textContent = '너: ' + userMessage;
+      userDiv.textContent = '나: ' + userMessage;
       chatBox.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
-      botDiv.textContent = '봇: ' + generateReply(userMessage);
+      botDiv.textContent = '건희봇: ' + generateReply(userMessage);
       chatBox.appendChild(botDiv);
 
       input.value = '';
