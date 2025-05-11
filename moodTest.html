@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오늘의 기분 테스트 😊</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 50px;
+      font-family: 'Pretendard', sans-serif;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    .button {
+      padding: 15px 30px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .button:hover {
+      background-color: #ff3385;
+    }
+    .character {
+      margin-top: 30px;
+      font-size: 2em;
+      transition: transform 1s;
+    }
+    img {
+      max-width: 200px;
+      transition: transform 1s;
+    }
+  </style>
+</head>
+<body>
+  <h1>오늘의 기분은?</h1>
+  <button class="button" onclick="getMood()">기분을 확인해보세요!</button>
+  <div id="character" class="character"></div>
+
+  <script>
+    function getMood() {
+      const characters = [
+        { name: '기쁨', img: 'joy.png' },
+        { name: '슬픔', img: 'sadness.png' },
+        { name: '분노', img: 'anger.png' },
+        { name: '혐오', img: 'disgust.png' },
+        { name: '두려움', img: 'fear.png' }
+      ];
+
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      const character = characters[randomIndex];
+
+      const characterDiv = document.getElementById('character');
+      characterDiv.innerHTML = `<img src="${character.img}" alt="${character.name}"><p>${character.name}이(가) 오늘의 기분이에요!</p>`;
+      
+      const img = document.querySelector('#character img');
+      img.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        img.style.transform = 'scale(1)';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
