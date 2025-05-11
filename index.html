@@ -13,6 +13,79 @@
       font-family: 'Pretendard', sans-serif;
       background: linear-gradient(to bottom, #ffe6f0, #fff);
       color: #444;
+      overflow: hidden;
+    }
+
+    /* 배경에 하트 애니메이션 */
+    .heart-animation {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      z-index: -1;
+      pointer-events: none;
+      animation: heart-float 10s infinite;
+    }
+
+    .heart-animation div {
+      position: absolute;
+      bottom: 0;
+      width: 50px;
+      height: 50px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Red_heart_icon.svg') no-repeat center center;
+      background-size: contain;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* 꽃잎 떨어지는 효과 */
+    .flower-petals {
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flower-petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://cdn.pixabay.com/photo/2017/10/05/15/53/flower-2812687_960_720.png') no-repeat center center;
+      background-size: cover;
+      animation: fall 5s linear infinite;
+    }
+
+    /* 애니메이션 */
+    @keyframes heart-float {
+      0% { transform: translateX(-50%) translateY(100%); }
+      25% { transform: translateX(-50%) translateY(-10%); }
+      50% { transform: translateX(-50%) translateY(100%); }
+      75% { transform: translateX(-50%) translateY(0); }
+      100% { transform: translateX(-50%) translateY(100%); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100vh); }
+    }
+
+    @keyframes fall {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      color: #444;
+      overflow: hidden;
     }
 
     /* 네비게이션 바 */
@@ -159,6 +232,22 @@
   </style>
 </head>
 <body>
+  <!-- 하트 애니메이션 배경 -->
+  <div class="heart-animation">
+    <div style="animation-delay: 0s;"></div>
+    <div style="animation-delay: 2s;"></div>
+    <div style="animation-delay: 4s;"></div>
+    <div style="animation-delay: 6s;"></div>
+  </div>
+
+  <!-- 꽃잎 떨어지는 애니메이션 -->
+  <div class="flower-petals">
+    <div class="flower-petal" style="animation-delay: 0s;"></div>
+    <div class="flower-petal" style="animation-delay: 1s;"></div>
+    <div class="flower-petal" style="animation-delay: 2s;"></div>
+    <div class="flower-petal" style="animation-delay: 3s;"></div>
+  </div>
+
   <!-- 네비게이션 -->
   <nav>
     <a href="index.html" class="title-link">🎉 수현이의 생일 홈</a>
