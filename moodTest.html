@@ -9,12 +9,12 @@
       padding: 0;
       font-family: 'Pretendard', sans-serif;
       text-align: center;
-      background: linear-gradient(to bottom, #ffe6f0, #fff8f8);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      transition: background 0.5s ease;
     }
 
     h1 {
@@ -122,25 +122,28 @@
   <script>
     function getMood() {
       const characters = [
-        { name: '기쁨이', img: '기쁨이.png' },
-        { name: '슬픔이', img: '슬픔이.png' },
-        { name: '버럭이', img: '버럭이.png' },
-        { name: '까칠이', img: '까칠이.png' },
-        { name: '소심이', img: '소심이.png' },
-        { name: '불안이', img: '불안이.png' },
-        { name: '부럽이', img: '부럽이.png' },
-        { name: '당황이', img: '당황이.png' },
-        { name: '따분이', img: '따분이.png' }
+        { name: '기쁨이', img: '기쁨이.png', bgColor: '#fff9c4', emoji: '😊' },
+        { name: '슬픔이', img: '슬픔이.png', bgColor: '#bbdefb', emoji: '😢' },
+        { name: '버럭이', img: '버럭이.png', bgColor: '#ffcdd2', emoji: '😠' },
+        { name: '까칠이', img: '까칠이.png', bgColor: '#e1bee7', emoji: '😤' },
+        { name: '소심이', img: '소심이.png', bgColor: '#d7ccc8', emoji: '😳' },
+        { name: '불안이', img: '불안이.png', bgColor: '#c8e6c9', emoji: '😰' },
+        { name: '부럽이', img: '부럽이.png', bgColor: '#f0f4c3', emoji: '😏' },
+        { name: '당황이', img: '당황이.png', bgColor: '#ffe0b2', emoji: '😳' },
+        { name: '따분이', img: '따분이.png', bgColor: '#eeeeee', emoji: '😐' }
       ];
 
       const randomIndex = Math.floor(Math.random() * characters.length);
       const character = characters[randomIndex];
 
+      // 배경색 변경
+      document.body.style.background = character.bgColor;
+
       const characterDiv = document.getElementById('character');
       characterDiv.innerHTML = `
         <div class="character-card">
           <img src="${character.img}" alt="${character.name}">
-          <p>오늘의 기분은 <strong>${character.name}</strong>예요! 💫</p>
+          <p>오늘의 기분은 <strong>${character.name}</strong>예요! ${character.emoji}</p>
         </div>
       `;
       characterDiv.classList.add('show');
