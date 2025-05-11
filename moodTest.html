@@ -63,7 +63,7 @@
       const character = characters[randomIndex];
 
       const characterDiv = document.getElementById('character');
-      characterDiv.innerHTML = `<img src="${character.img}" alt="${character.name}"><p>${character.name}이(가) 오늘의 기분이에요!</p>`;
+      characterDiv.innerHTML = `<img src="${character.img}" alt="${character.name}"><p>$오늘의 기분은 {character.name} !</p>`;
       
       const img = document.querySelector('#character img');
       img.style.transform = 'scale(1.2)';
