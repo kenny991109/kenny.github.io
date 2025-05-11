@@ -4,11 +4,58 @@
   <meta charset="UTF-8">
   <title>감성 챗봇</title>
   <style>
-    /* 기존 스타일 유지 */
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #fff0f5;
+      padding: 20px;
+      text-align: center;
+    }
+    #chat-container {
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .message {
+      margin: 10px 0;
+      text-align: left;
+    }
+    .user {
+      color: #333;
+      font-weight: bold;
+    }
+    .bot {
+      color: #ff66b2;
+      margin-left: 10px;
+    }
+    #input-area {
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff3385;
+    }
   </style>
 </head>
 <body>
-  <h1>💬 건희봇</h1>
+  <h1>💬 감성 챗봇</h1>
   <div id="chat-container">
     <div id="chat-box"></div>
     <div id="input-area">
@@ -18,23 +65,28 @@
   </div>
 
   <script>
-    // 감정 분석 함수 (간단한 키워드 기반)
+    // 감정 키워드 사전
+    const emotionKeywords = {
+      '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐'],
+      '기쁨': ['행복', '기뻐', '좋아', '즐거', '웃어'],
+      '분노': ['화나', '짜증', '열받', '짜증나', '미워'],
+      '감사': ['고마워', '감사', '덕분'],
+      '사랑': ['사랑', '보고싶', '그리워', '소중'],
+      '불안': ['불안', '걱정', '긴장', '초조']
+    };
+
+    // 감정 감지 함수
     function detectEmotion(message) {
-      const emotionKeywords = {
-        '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐'],
-        '기쁨': ['행복', '기뻐', '좋아', '즐거', '웃어'],
-        '분노': ['화나', '짜증', '열받', '짜증나', '미워'],
-        '감사': ['고마워', '감사', '덕분'],
-        '사랑': ['사랑', '보고싶', '그리워', '소중'],
-        '불안': ['불안', '걱정', '긴장', '초조']
-      };
+      const scores = {};
+      for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
+        scores[emotion] = keywords.reduce((acc, word) => {
+          return acc + (message.includes(word) ? 1 : 0);
+        }, 0);
+      }
 
       let maxScore = 0;
       let detected = '기타';
-      
-      // 메시지에서 각 감정별 키워드 개수를 세고, 가장 높은 점수를 가진 감정을 반환
-      for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
-        let score = keywords.reduce((acc, word) => acc + (message.includes(word) ? 1 : 0), 0);
+      for (const [emotion, score] of Object.entries(scores)) {
         if (score > maxScore) {
           maxScore = score;
           detected = emotion;
@@ -44,8 +96,9 @@
       return detected;
     }
 
-    // 감정 분석을 통해 응답 생성
+    // 응답 생성 함수
     function generateReply(message) {
+      message = message.toLowerCase();
       const emotion = detectEmotion(message);
 
       switch (emotion) {
@@ -75,12 +128,12 @@
 
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
-      userDiv.textContent = '나: ' + userMessage;
+      userDiv.textContent = '너: ' + userMessage;
       chatBox.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
-      botDiv.textContent = '건희봇: ' + generateReply(userMessage);
+      botDiv.textContent = '봇: ' + generateReply(userMessage);
       chatBox.appendChild(botDiv);
 
       input.value = '';
