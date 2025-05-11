@@ -4,7 +4,54 @@
   <meta charset="UTF-8">
   <title>감성 챗봇</title>
   <style>
-    /* 기존 스타일 유지 */
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #fff0f5;
+      padding: 20px;
+      text-align: center;
+    }
+    #chat-container {
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .message {
+      margin: 10px 0;
+      text-align: left;
+    }
+    .user {
+      color: #333;
+      font-weight: bold;
+    }
+    .bot {
+      color: #ff66b2;
+      margin-left: 10px;
+    }
+    #input-area {
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff3385;
+    }
   </style>
 </head>
 <body>
@@ -18,42 +65,54 @@
   </div>
 
   <script>
-    // Hugging Face API 키 (본인의 API 키를 넣어주세요)
-    const API_KEY = 'YOUR_HUGGINGFACE_API_KEY';
-    const API_URL = 'https://api-inference.huggingface.co/models/j-hartmann/emotion-english-distilroberta-base';
+    // 감정 키워드 사전
+    const emotionKeywords = {
+      '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐'],
+      '기쁨': ['행복', '기뻐', '좋아', '즐거', '웃어'],
+      '분노': ['화나', '짜증', '열받', '짜증나', '미워'],
+      '감사': ['고마워', '감사', '덕분'],
+      '사랑': ['사랑', '보고싶', '그리워', '소중'],
+      '불안': ['불안', '걱정', '긴장', '초조']
+    };
 
-    // 감정 분석 함수 (API 호출)
-    async function analyzeEmotion(message) {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ inputs: message })
-      });
+    // 감정 감지 함수
+    function detectEmotion(message) {
+      const scores = {};
+      for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
+        scores[emotion] = keywords.reduce((acc, word) => {
+          return acc + (message.includes(word) ? 1 : 0);
+        }, 0);
+      }
 
-      const data = await response.json();
-      return data[0]?.label || '기타';
+      let maxScore = 0;
+      let detected = '기타';
+      for (const [emotion, score] of Object.entries(scores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          detected = emotion;
+        }
+      }
+
+      return detected;
     }
 
     // 응답 생성 함수
-    async function generateReply(message) {
+    function generateReply(message) {
       message = message.toLowerCase();
-      const emotion = await analyzeEmotion(message); // 감정 분석 API 호출
+      const emotion = detectEmotion(message);
 
       switch (emotion) {
-        case 'sadness':
+        case '슬픔':
           return '괜찮아, 내가 옆에 있어줄게 💕';
-        case 'joy':
+        case '기쁨':
           return '행복하다니 나도 기뻐 😊';
-        case 'anger':
+        case '분노':
           return '그럴 땐 심호흡이 좋아요. 후~ 😤';
-        case 'gratitude':
+        case '감사':
           return '천만에요! 당신은 소중한 사람이에요 💖';
-        case 'love':
+        case '사랑':
           return '사랑은 참 아름다운 감정이죠 💞';
-        case 'fear':
+        case '불안':
           return '불안할 땐 잠시 멈추고 숨을 크게 쉬어봐요 🌿';
         default:
           return '그렇구나! 더 이야기해줘 ✨';
@@ -61,7 +120,7 @@
     }
 
     // 메시지 전송 및 표시
-    async function sendMessage() {
+    function sendMessage() {
       const input = document.getElementById('user-input');
       const chatBox = document.getElementById('chat-box');
       const userMessage = input.value.trim();
@@ -72,10 +131,9 @@
       userDiv.textContent = '너: ' + userMessage;
       chatBox.appendChild(userDiv);
 
-      const botReply = await generateReply(userMessage); // 비동기 호출로 응답 생성
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
-      botDiv.textContent = '봇: ' + botReply;
+      botDiv.textContent = '봇: ' + generateReply(userMessage);
       chatBox.appendChild(botDiv);
 
       input.value = '';
