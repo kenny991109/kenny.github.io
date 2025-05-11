@@ -14,7 +14,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: background 0.5s ease;
+      transition: background 1s ease;
     }
 
     h1 {
@@ -98,6 +98,7 @@
       z-index: 0;
       animation: float 6s ease-in-out infinite;
     }
+
     .bg1 { top: 50px; left: 20px; }
     .bg2 { bottom: 100px; right: 30px; }
     .bg3 { top: 150px; right: 80px; }
@@ -122,28 +123,29 @@
   <script>
     function getMood() {
       const characters = [
-        { name: '기쁨이', img: '기쁨이.png', bgColor: '#fff9c4', emoji: '😊' },
-        { name: '슬픔이', img: '슬픔이.png', bgColor: '#bbdefb', emoji: '😢' },
-        { name: '버럭이', img: '버럭이.png', bgColor: '#ffcdd2', emoji: '😠' },
-        { name: '까칠이', img: '까칠이.png', bgColor: '#e1bee7', emoji: '😤' },
-        { name: '소심이', img: '소심이.png', bgColor: '#d7ccc8', emoji: '😳' },
-        { name: '불안이', img: '불안이.png', bgColor: '#c8e6c9', emoji: '😰' },
-        { name: '부럽이', img: '부럽이.png', bgColor: '#f0f4c3', emoji: '😏' },
-        { name: '당황이', img: '당황이.png', bgColor: '#ffe0b2', emoji: '😳' },
-        { name: '따분이', img: '따분이.png', bgColor: '#eeeeee', emoji: '😐' }
+        { name: '기쁨이', img: '기쁨이.png', bgColor: '#FFEB3B', emoji: '🌸' },
+        { name: '슬픔이', img: '슬픔이.png', bgColor: '#2196F3', emoji: '😢' },
+        { name: '버럭이', img: '버럭이.png', bgColor: '#F44336', emoji: '🔥' },
+        { name: '까칠이', img: '까칠이.png', bgColor: '#4CAF50', emoji: '🥦' },
+        { name: '소심이', img: '소심이.png', bgColor: '#9C27B0', emoji: '⚠️' },
+        { name: '불안이', img: '불안이.png', bgColor: '#FF9800', emoji: '😰' },
+        { name: '부럽이', img: '부럽이.png', bgColor: '#80CBC4', emoji: '😓' },
+        { name: '당황이', img: '당황이.png', bgColor: '#E91E63', emoji: '😳' },
+        { name: '따분이', img: '따분이.png', bgColor: '#9C27B0', emoji: '😒' }
       ];
 
       const randomIndex = Math.floor(Math.random() * characters.length);
       const character = characters[randomIndex];
 
-      // 배경색 변경
-      document.body.style.background = character.bgColor;
+      // 배경과 이모티콘 변경
+      document.body.style.backgroundColor = character.bgColor;
+      document.body.innerHTML += `<div style="position: absolute; top: 10px; right: 10px; font-size: 3em;">${character.emoji}</div>`;
 
       const characterDiv = document.getElementById('character');
       characterDiv.innerHTML = `
         <div class="character-card">
           <img src="${character.img}" alt="${character.name}">
-          <p>오늘의 기분은 <strong>${character.name}</strong>예요! ${character.emoji}</p>
+          <p>오늘의 기분은 <strong>${character.name}</strong>예요! 💫</p>
         </div>
       `;
       characterDiv.classList.add('show');
