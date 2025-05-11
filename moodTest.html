@@ -6,22 +6,19 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
+      padding: 50px;
       font-family: 'Pretendard', sans-serif;
       text-align: center;
-      background: linear-gradient(to bottom, #ffe6f0, #fff8f8);
+      background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+      position: relative;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
 
     h1 {
-      font-size: 2.8em;
+      font-size: 2.5em;
       margin-bottom: 20px;
       color: #ff3399;
-      text-shadow: 1px 1px #fff;
+      text-shadow: 1px 1px 2px #fff;
     }
 
     .button {
@@ -29,94 +26,77 @@
       background-color: #ff66b2;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       font-size: 1.2em;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      margin-top: 20px;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     .button:hover {
       background-color: #ff3385;
+      transform: scale(1.05);
     }
 
     .character {
-      margin-top: 30px;
-      opacity: 0;
-      transform: scale(0.8);
-      transition: all 0.8s ease;
+      margin-top: 40px;
+      font-size: 1.5em;
+      animation: fadeIn 1s ease-in-out;
     }
 
-    .character.show {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .character-card {
-      background: #fff;
-      border: 3px dashed #ffb6d9;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      animation: fadeInUp 1s ease forwards;
-      max-width: 320px;
-      margin: 0 auto;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .character-card img {
-      max-width: 180px;
-      border-radius: 10px;
+    img {
+      max-width: 220px;
       margin-bottom: 20px;
-      animation: pop 0.6s ease;
+      animation: popIn 0.6s ease-out;
     }
 
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      60% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); }
+    @keyframes popIn {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
-    .character-card p {
-      font-size: 1.3em;
-      color: #ff3399;
-      font-weight: bold;
-      margin: 0;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* 데코레이션 */
-    .bg-deco {
+    .home-button {
       position: absolute;
-      width: 100px;
-      height: 100px;
-      background: #ffd6ec;
-      border-radius: 50%;
-      opacity: 0.5;
-      z-index: 0;
-      animation: float 6s ease-in-out infinite;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background-color: #ff99cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+      z-index: 10;
     }
-    .bg1 { top: 50px; left: 20px; }
-    .bg2 { bottom: 100px; right: 30px; }
-    .bg3 { top: 150px; right: 80px; }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+    .home-button:hover {
+      background-color: #ff66a3;
     }
   </style>
 </head>
 <body>
-  <!-- 데코레이션 요소 -->
-  <div class="bg-deco bg1"></div>
-  <div class="bg-deco bg2"></div>
-  <div class="bg-deco bg3"></div>
+  <a href="index.html" class="home-button">🏠 홈으로</a>
 
   <h1>오늘의 기분은?</h1>
   <button class="button" onclick="getMood()">기분을 확인해보세요!</button>
-
   <div id="character" class="character"></div>
 
   <script>
@@ -138,12 +118,9 @@
 
       const characterDiv = document.getElementById('character');
       characterDiv.innerHTML = `
-        <div class="character-card">
-          <img src="${character.img}" alt="${character.name}">
-          <p>오늘의 기분은 <strong>${character.name}</strong>예요! 💫</p>
-        </div>
+        <img src="${character.img}" alt="${character.name}">
+        <p>오늘의 기분은 <strong>${character.name}</strong>~! 😊</p>
       `;
-      characterDiv.classList.add('show');
     }
   </script>
 </body>
