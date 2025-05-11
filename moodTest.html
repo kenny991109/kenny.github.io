@@ -6,12 +6,35 @@
   <style>
     body {
       margin: 0;
-      padding: 50px;
       font-family: 'Pretendard', sans-serif;
-      text-align: center;
       background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-      position: relative;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 80px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .home-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background-color: #ff99cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+      z-index: 100;
+    }
+
+    .home-button:hover {
+      background-color: #ff66a3;
     }
 
     h1 {
@@ -42,6 +65,7 @@
       margin-top: 40px;
       font-size: 1.5em;
       animation: fadeIn 1s ease-in-out;
+      text-align: center;
     }
 
     img {
@@ -70,25 +94,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    .home-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 15px;
-      background-color: #ff99cc;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background-color 0.3s;
-      z-index: 10;
-    }
-
-    .home-button:hover {
-      background-color: #ff66a3;
     }
   </style>
 </head>
