@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <title>수현이 생일 축하해 💖</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -14,22 +12,21 @@
       background: linear-gradient(to bottom, #ffe6f0, #fff);
       color: #444;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* 벚꽃 애니메이션 */
-    .petal {
+    /* 벚꽃 잎 스타일 */
+    .sakura {
       position: fixed;
       top: -50px;
-      width: 25px;
-      height: 25px;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Sakura_petal.svg/1024px-Sakura_petal.svg.png');
+      width: 20px;
+      height: 20px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/765/765341.png');
       background-size: contain;
       background-repeat: no-repeat;
       opacity: 0.8;
+      pointer-events: none;
       animation: fall linear infinite;
       z-index: 1;
-      pointer-events: none;
     }
 
     @keyframes fall {
@@ -102,6 +99,8 @@
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
       text-align: center;
+      z-index: 2;
+      position: relative;
     }
 
     h2 {
@@ -186,19 +185,19 @@
   </style>
 </head>
 <body>
-  <!-- 벚꽃 떨어지는 효과 -->
+  <!-- 벚꽃 애니메이션 -->
   <script>
-    function createPetal() {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random() * window.innerWidth + 'px';
-      petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      petal.style.transform = `rotate(${Math.random() * 360}deg)`;
-      document.body.appendChild(petal);
-      setTimeout(() => petal.remove(), 10000);
+    function createSakura() {
+      const sakura = document.createElement('div');
+      sakura.classList.add('sakura');
+      sakura.style.left = Math.random() * window.innerWidth + 'px';
+      sakura.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      sakura.style.opacity = Math.random() * 0.8 + 0.2;
+      document.body.appendChild(sakura);
+      setTimeout(() => sakura.remove(), 10000);
     }
 
-    setInterval(createPetal, 300);
+    setInterval(createSakura, 300);
   </script>
 
   <!-- 네비게이션 -->
@@ -215,7 +214,6 @@
     <h2>🎂 생일 축하해, 수현아!</h2>
     <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
-    <!-- 음악 선택 -->
     <div class="music-section">
       <p>🎵 생일 기념 음악을 골라봐!</p>
       <button onclick="playSong('happy_birthday.mp3')">Happy</button>
@@ -223,7 +221,6 @@
       <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
     </div>
 
-    <!-- 추억 사진 섹션 -->
     <div class="photo-gallery">
       <img src="https://placekitten.com/200/200" alt="기억1">
       <img src="https://placekitten.com/201/200" alt="기억2">
@@ -231,7 +228,6 @@
     </div>
   </div>
 
-  <!-- 오디오 -->
   <audio id="audioPlayer" style="display:none">
     <source id="audioSource" src="" type="audio/mp3">
     Your browser does not support the audio element.
