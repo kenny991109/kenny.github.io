@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>수현이 생일 축하해 💖</title>
   <style>
     * {
@@ -14,6 +15,7 @@
       background: linear-gradient(to bottom, #ffe6f0, #fff);
       color: #444;
       overflow-x: hidden;
+      height: 100%;
     }
 
     /* 네비게이션 바 */
@@ -150,6 +152,7 @@
       z-index: 20;
       user-select: none;
       animation-duration: 5s;
+      animation-timing-function: ease-in-out;
     }
 
     @keyframes fallHeart {
@@ -190,6 +193,11 @@
       nav {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .container {
+        width: 100%;
+        padding: 20px;
       }
     }
   </style>
