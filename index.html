@@ -28,9 +28,15 @@
       z-index: 100;
     }
 
-    nav h1 {
-      margin: 0;
+    nav a.title-link {
+      color: white;
+      text-decoration: none;
       font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    nav a.title-link:hover {
+      text-decoration: underline;
     }
 
     .nav-links {
@@ -155,9 +161,8 @@
 <body>
   <!-- 네비게이션 -->
   <nav>
-    <h1>🎉 수현이의 생일 홈</h1>
+    <a href="index.html" class="title-link">🎉 수현이의 생일 홈</a>
     <div class="nav-links">
-      <a href="index.html">홈</a>
       <a href="moodTest.html">기분 테스트 😊</a>
       <a href="chatbot.html">AI 감정 챗봇 💬</a>
     </div>
