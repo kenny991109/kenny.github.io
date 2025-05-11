@@ -9,6 +9,21 @@
       background-color: #fff0f5;
       padding: 20px;
       text-align: center;
+      position: relative;
+    }
+    #home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      background-color: #ff66b2;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #home-button:hover {
+      background-color: #ff3385;
     }
     #chat-container {
       width: 90%;
@@ -55,6 +70,7 @@
   </style>
 </head>
 <body>
+  <a href="index.html" id="home-button">🏠 홈으로</a>
   <h1>💬 AI 건희봇</h1>
   <div id="chat-container">
     <div id="chat-box"></div>
@@ -65,7 +81,6 @@
   </div>
 
   <script>
-    // 감정 키워드 사전
     const emotionKeywords = {
       '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐'],
       '기쁨': ['행복', '기뻐', '좋아', '즐거', '웃어'],
@@ -75,7 +90,6 @@
       '불안': ['불안', '걱정', '긴장', '초조']
     };
 
-    // 감정 감지 함수
     function detectEmotion(message) {
       const scores = {};
       for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
@@ -96,7 +110,6 @@
       return detected;
     }
 
-    // 응답 생성 함수
     function generateReply(message) {
       message = message.toLowerCase();
       const emotion = detectEmotion(message);
@@ -119,7 +132,6 @@
       }
     }
 
-    // 메시지 전송 및 표시
     function sendMessage() {
       const input = document.getElementById('user-input');
       const chatBox = document.getElementById('chat-box');
