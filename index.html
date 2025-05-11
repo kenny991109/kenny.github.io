@@ -2,71 +2,206 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>드롭다운 메뉴 예제</title>
+  <title>수현이 생일 축하해 💖</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Pretendard', sans-serif;
-      background: #fff8fb;
       margin: 0;
-      padding: 50px;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      color: #444;
     }
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropbtn {
+    /* 네비게이션 바 */
+    nav {
       background-color: #ff66b2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
       color: white;
-      padding: 10px 20px;
-      font-size: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      padding: 5px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: #fffafa;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #message {
+      font-size: 1.2em;
+      margin: 20px 0 30px;
+      animation: typing 4s steps(40, end);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid pink;
+    }
+
+    .music-section {
+      margin: 30px 0;
+    }
+
+    .music-section button {
+      background-color: #ffe0ec;
+      color: #ff3385;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
+      padding: 8px 15px;
+      margin: 5px;
       cursor: pointer;
     }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #ffe6f0;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      z-index: 1;
+    .music-section button:hover {
+      background-color: #ffb3d9;
     }
 
-    .dropdown-content a {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      white-space: nowrap; /* <-- 요게 핵심! 가로로 텍스트 보이게 함 */
+    .photo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    .dropdown-content a:hover {
-      background-color: #ffccdd;
+    .photo-gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
 
-    .dropdown:hover .dropdown-content {
-      display: block;
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9em;
     }
 
-    .dropdown:hover .dropbtn {
-      background-color: #ff3385;
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="dropdown">
-    <button class="dropbtn">메뉴 ▼</button>
-    <div class="dropdown-content">
+  <!-- 네비게이션 -->
+  <nav>
+    <h1>🎉 수현이의 생일 홈</h1>
+    <div class="nav-links">
       <a href="index.html">홈</a>
       <a href="moodTest.html">기분 테스트 😊</a>
       <a href="chatbot.html">AI 감정 챗봇 💬</a>
     </div>
+  </nav>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="container">
+    <h2>🎂 생일 축하해, 수현아!</h2>
+    <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
+
+    <!-- 음악 선택 -->
+    <div class="music-section">
+      <p>🎵 생일 기념 음악을 골라봐!</p>
+      <button onclick="playSong('happy_birthday.mp3')">Happy</button>
+      <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
+      <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
+    </div>
+
+    <!-- 추억 사진 섹션 -->
+    <div class="photo-gallery">
+      <img src="https://placekitten.com/200/200" alt="기억1">
+      <img src="https://placekitten.com/201/200" alt="기억2">
+      <img src="https://placekitten.com/202/200" alt="기억3">
+    </div>
   </div>
 
+  <!-- 오디오 -->
+  <audio id="audioPlayer" style="display:none">
+    <source id="audioSource" src="" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <footer>
+    © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
+  </footer>
+
+  <script>
+    function playSong(song) {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioSource = document.getElementById('audioSource');
+      audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
+      audioPlayer.load();
+      audioPlayer.play();
+    }
+  </script>
 </body>
 </html>
