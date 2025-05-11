@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>수현이 생일 축하해 💖</title>
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -14,32 +16,7 @@
       overflow-x: hidden;
     }
 
-    /* 꽃잎 애니메이션 */
-    .flower {
-      position: fixed;
-      top: -50px;
-      width: 30px;
-      height: 30px;
-      background-image: url('https://cdn-icons-png.flaticon.com/512/2917/2917242.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      opacity: 0.8;
-      pointer-events: none;
-      animation: fall linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
+    /* 네비게이션 바 */
     nav {
       background-color: #ff66b2;
       display: flex;
@@ -57,10 +34,6 @@
       text-decoration: none;
       font-size: 1.5em;
       font-weight: bold;
-    }
-
-    nav a.title-link:hover {
-      text-decoration: none;
     }
 
     .nav-links {
@@ -99,8 +72,6 @@
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
       text-align: center;
-      z-index: 2;
-      position: relative;
     }
 
     h2 {
@@ -169,6 +140,28 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* 하트 떨어지는 효과 */
+    .heart {
+      position: fixed;
+      top: -30px;
+      font-size: 24px;
+      animation: fallHeart linear infinite;
+      pointer-events: auto;
+      z-index: 20;
+      user-select: none;
+    }
+
+    @keyframes fallHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
     @media (max-width: 600px) {
       .nav-links {
         flex-direction: column;
@@ -185,21 +178,6 @@
   </style>
 </head>
 <body>
-  <!-- 꽃잎 애니메이션 -->
-  <script>
-    function createFlower() {
-      const flower = document.createElement('div');
-      flower.classList.add('flower');
-      flower.style.left = Math.random() * window.innerWidth + 'px';
-      flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      flower.style.opacity = Math.random() * 0.8 + 0.2;
-      document.body.appendChild(flower);
-      setTimeout(() => flower.remove(), 10000);
-    }
-
-    setInterval(createFlower, 300);
-  </script>
-
   <!-- 네비게이션 -->
   <nav>
     <a href="index.html" class="title-link">🎉 수현이의 생일 홈</a>
@@ -214,6 +192,7 @@
     <h2>🎂 생일 축하해, 수현아!</h2>
     <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
+    <!-- 음악 선택 -->
     <div class="music-section">
       <p>🎵 생일 기념 음악을 골라봐!</p>
       <button onclick="playSong('happy_birthday.mp3')">Happy</button>
@@ -221,6 +200,7 @@
       <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
     </div>
 
+    <!-- 추억 사진 섹션 -->
     <div class="photo-gallery">
       <img src="https://placekitten.com/200/200" alt="기억1">
       <img src="https://placekitten.com/201/200" alt="기억2">
@@ -228,6 +208,7 @@
     </div>
   </div>
 
+  <!-- 오디오 -->
   <audio id="audioPlayer" style="display:none">
     <source id="audioSource" src="" type="audio/mp3">
     Your browser does not support the audio element.
@@ -237,6 +218,31 @@
     © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
   </footer>
 
+  <!-- 하트 떨어지는 스크립트 -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+      // 클릭 시 메시지 출력
+      heart.addEventListener("click", () => {
+        alert("사랑해 ❤️");
+      });
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+
+  <!-- 음악 재생 함수 -->
   <script>
     function playSong(song) {
       const audioPlayer = document.getElementById('audioPlayer');
