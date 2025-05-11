@@ -10,6 +10,7 @@
       text-align: center;
       font-family: 'Pretendard', sans-serif;
       padding: 50px;
+      position: relative;
     }
     h1 {
       font-size: 3em;
@@ -31,9 +32,9 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .button {
+    .main-button {
       padding: 10px 20px;
-      margin: 10px;
+      margin: 30px auto;
       background-color: #ff66b2;
       color: white;
       border: none;
@@ -41,29 +42,49 @@
       font-size: 1.2em;
       cursor: pointer;
     }
-    .button:hover {
+    .main-button:hover {
       background-color: #ff3385;
+    }
+    .music-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .music-buttons button {
+      background-color: #ffcce0;
+      color: #ff3385;
+      border: none;
+      border-radius: 3px;
+      padding: 5px 10px;
+      margin-left: 5px;
+      font-size: 0.8em;
+      cursor: pointer;
+    }
+    .music-buttons button:hover {
+      background-color: #ffb3d9;
     }
   </style>
 </head>
 <body>
+  <!-- 우측 상단 음악 버튼 -->
+  <div class="music-buttons">
+    <button onclick="playSong('happy_birthday.mp3')">🎵 Happy</button>
+    <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
+    <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie</button>
+  </div>
+
   <h1>🎂 생일 축하해, OO야! 🎉</h1>
   <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
-  <!-- 음악을 버튼으로 선택하게 하기 -->
+  <!-- 감정 테스트 버튼 -->
   <div>
-    <button class="button" onclick="playSong('happy_birthday.mp3')">Happy Birthday 🎶</button>
-    <button class="button" onclick="playSong('10cm_birthday.mp3')">10cm의 생일 축하해 🎤</button>
-    <button class="button" onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder 🎵</button>
+    <a href="moodTest.html">
+      <button class="main-button">오늘의 기분 테스트 😊</button>
+    </a>
   </div>
 
-  <!-- 기분 테스트 페이지로 이동하는 버튼 -->
-  <div>
-    <a href="moodTest.html"><button class="button">오늘의 기분 테스트! 😊</button></a>
-  </div>
-
-  <!-- 오디오 플레이어 -->
-  <audio id="audioPlayer" controls>
+  <!-- 숨겨진 오디오 플레이어 -->
+  <audio id="audioPlayer" style="display:none">
     <source id="audioSource" src="" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
@@ -72,6 +93,7 @@
     function playSong(song) {
       var audioPlayer = document.getElementById('audioPlayer');
       var audioSource = document.getElementById('audioSource');
+
       audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
       audioPlayer.load();
       audioPlayer.play();
