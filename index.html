@@ -57,6 +57,11 @@
     <button class="button" onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder 🎵</button>
   </div>
 
+  <!-- 기분 테스트 페이지로 이동하는 버튼 -->
+  <div>
+    <a href="moodTest.html"><button class="button">오늘의 기분 테스트! 😊</button></a>
+  </div>
+
   <!-- 오디오 플레이어 -->
   <audio id="audioPlayer" controls>
     <source id="audioSource" src="" type="audio/mp3">
@@ -65,14 +70,9 @@
 
   <script>
     function playSong(song) {
-      // 오디오 플레이어에 새로운 곡 로드
       var audioPlayer = document.getElementById('audioPlayer');
       var audioSource = document.getElementById('audioSource');
-      
-      // GitHub에 올려놓은 mp3 파일의 URL을 설정
       audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
-
-      // 새로운 곡 로드 후 재생
       audioPlayer.load();
       audioPlayer.play();
     }
