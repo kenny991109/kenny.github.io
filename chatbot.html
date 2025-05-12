@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: 'Pretendard', sans-serif;
-      background-color: #f4f6f9;
+      background-color: #f0f0f0; /* 밝은 회색 배경 */
       padding: 20px;
       display: flex;
       justify-content: center;
@@ -19,39 +19,81 @@
       top: 20px;
       left: 20px;
       text-decoration: none;
-      background-color: #ff66b2;
+      background-color: #5865F2; /* Discord 색상 계열 */
       color: white;
-      padding: 8px 12px;
+      padding: 10px 15px;
       border-radius: 5px;
       font-weight: bold;
+      z-index: 10; /* 다른 요소 위에 표시 */
     }
     #home-button:hover {
-      background-color: #ff3385;
+      background-color: #4752C4;
     }
     #chat-container {
       width: 100%;
-      max-width: 500px; /* 채팅창 최대 너비 증가 */
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 450px; /* 적절한 최대 너비 */
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       padding: 20px;
       display: flex;
       flex-direction: column;
-      height: 500px;
-      overflow-y: auto;
+      height: 600px; /* 좀 더 높게 */
+    }
+    #chat-header {
+      padding: 15px 0;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 15px;
+    }
+    #chat-header h2 {
+      margin: 0;
+      color: #333;
+      font-size: 20px;
+    }
+    #chat-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    .menu-button {
+      background-color: #e0e0e0;
+      color: #333;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .menu-button:hover {
+      background-color: #d0d0d0;
     }
     #chat-box {
       flex-grow: 1;
       overflow-y: auto;
-      padding-right: 10px;
-      margin-bottom: 20px;
+      padding: 10px;
+      margin-bottom: 15px;
       display: flex;
       flex-direction: column;
+      scrollbar-width: thin; /* Firefox */
+      scrollbar-color: #aaa #f0f0f0; /* Firefox */
+    }
+    #chat-box::-webkit-scrollbar {
+      width: 8px;
+    }
+    #chat-box::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: 10px;
+    }
+    #chat-box::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+      border-radius: 10px;
     }
     .message {
-      margin: 10px 0;
+      margin-bottom: 10px;
       display: flex;
-      align-items: flex-start; /* Changed to flex-start */
+      align-items: flex-start;
     }
     .message.user {
       justify-content: flex-end;
@@ -60,16 +102,16 @@
       justify-content: flex-start;
     }
     .message .profile-image {
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
       margin-right: 10px;
       margin-left: 10px;
-      background-color: #ddd; /* 임시 배경색 */
+      background-color: #ddd;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 12px;
+      font-size: 14px;
       color: #333;
       overflow: hidden;
     }
@@ -79,103 +121,88 @@
     }
     .message div.bubble {
       max-width: 70%;
-      padding: 12px;
-      border-radius: 15px; /* Reduced border-radius for a more bubble-like look */
+      padding: 10px 15px;
+      border-radius: 20px;
       font-size: 16px;
-      line-height: 1.5;
-      position: relative; /* For the speech bubble tail */
+      line-height: 1.4;
+      position: relative;
+      word-break: break-word;
     }
     .user div.bubble {
-      background-color: #ff66b2;
-      color: white;
-      border-radius: 15px 15px 0 15px;
+      background-color: #DCF8C6; /* WhatsApp 말풍선 색상 계열 */
+      color: #333;
+      border-radius: 20px 20px 0 20px;
     }
     .bot div.bubble {
-      background-color: #e6e6e6;
+      background-color: #E0F7FA; /* 밝은 하늘색 계열 */
       color: #333;
-      border-radius: 15px 15px 15px 0;
-    }
-    /* Speech bubble tail for user */
-    .user div.bubble::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      right: -10px;
-      width: 0;
-      height: 0;
-      border-top: 10px solid #ff66b2;
-      border-left: 10px solid transparent;
-    }
-    /* Speech bubble tail for bot */
-    .bot div.bubble::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: -10px;
-      width: 0;
-      height: 0;
-      border-top: 10px solid #e6e6e6;
-      border-right: 10px solid transparent;
+      border-radius: 20px 20px 20px 0;
     }
     .message .time {
-      font-size: 10px;
+      font-size: 11px;
       color: #888;
-      margin-top: 3px;
+      margin-top: 5px;
     }
     .message.user .time {
       text-align: right;
     }
     #input-area {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
     }
-    input[type="text"] {
-      width: 80%;
-      padding: 12px;
+    #user-input {
+      flex-grow: 1;
+      padding: 10px 15px;
       border: 1px solid #ccc;
       border-radius: 25px;
       font-size: 16px;
       margin-right: 10px;
     }
-    button {
-      padding: 12px 20px;
-      background-color: #ff66b2;
+    #send-button {
+      background-color: #5865F2;
       color: white;
       border: none;
-      border-radius: 25px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
-      font-size: 16px;
-      font-family: inherit; /* 버튼 폰트 상속 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
     }
-    button:hover {
-      background-color: #ff3385;
-    }
-    /* Webkit 스크롤바 스타일 */
-    #chat-box::-webkit-scrollbar {
-      width: 8px;
-    }
-    #chat-box::-webkit-scrollbar-thumb {
-      background-color: #aaa;
-      border-radius: 10px;
-    }
-    #chat-box::-webkit-scrollbar-track {
-      background-color: #f1f1f1;
-      border-radius: 10px;
+    #send-button:hover {
+      background-color: #4752C4;
     }
   </style>
 </head>
 <body>
   <a href="index.html" id="home-button">🏠 홈으로</a>
   <div id="chat-container">
+    <div id="chat-header">
+      <h2>마음을 읽어주는 챗봇</h2>
+      <p>오늘 당신의 기분은 어떠신가요?</p>
+    </div>
+    <div id="chat-menu">
+      <button class="menu-button" onclick="sendMessage('오늘 날씨 어때?')">날씨</button>
+      <button class="menu-button" onclick="sendMessage('재미있는 영화 추천해줘')">영화 추천</button>
+      <button class="menu-button" onclick="sendMessage('힘들어')">힘들어요</button>
+      <button class="menu-button" onclick="sendMessage('사랑해')">사랑해</button>
+      </div>
     <div id="chat-box"></div>
     <div id="input-area">
       <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" />
-      <button onclick="sendMessage()">보내기</button>
+      <button id="send-button">➤</button>
     </div>
   </div>
 
   <script>
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
     const emotionKeywords = {
       '슬픔': [
         '슬퍼', '우울', '눈물', '외로', '지쳐', '힘들어', '상처', '괴로워', '속상해',
@@ -269,36 +296,29 @@
       }
     }
 
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const chatBox = document.getElementById('chat-box');
-      const userMessage = input.value.trim();
+    function displayMessage(sender, message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      messageDiv.innerHTML = `
+        <div class="profile-image">${sender === 'user' ? '👤' : '🤖'}</div>
+        <div class="bubble">${message}</div>
+        <div class="time">${getCurrentTime()}</div>
+      `;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage(text) {
+      let userMessage = text ? text : userInput.value.trim();
       if (!userMessage) return;
 
-      // 사용자 메시지 추가
-      const userDiv = document.createElement('div');
-      userDiv.className = 'message user';
-      userDiv.innerHTML = `
-        <div class="profile-image">👤</div>
-        <div class="bubble">${userMessage}</div>
-        <div class="time">${getCurrentTime()}</div>
-      `;
-      chatBox.appendChild(userDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
+      displayMessage('user', userMessage);
+      userInput.value = '';
 
-      // 봇의 응답 생성
-      const botMessage = generateReply(userMessage);
-      const botDiv = document.createElement('div');
-      botDiv.className = 'message bot';
-      botDiv.innerHTML = `
-        <div class="profile-image">🤖</div>
-        <div class="bubble">${botMessage}</div>
-        <div class="time">${getCurrentTime()}</div>
-      `;
-      chatBox.appendChild(botDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      input.value = '';
+      setTimeout(() => {
+        const botReply = generateReply(userMessage);
+        displayMessage('bot', botReply);
+      }, 500); // 약간의 딜레이를 줘서 챗봇이 응답하는 것처럼 보이게 함
     }
 
     function checkEnter(event) {
@@ -313,6 +333,8 @@
       const minutes = String(now.getMinutes()).padStart(2, '0');
       return `${hours}:${minutes}`;
     }
+
+    sendButton.addEventListener('click', sendMessage);
   </script>
 </body>
 </html>
