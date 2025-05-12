@@ -2,163 +2,132 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>감성 챗봇</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개선된 챗봇</title>
   <style>
     body {
       font-family: 'Pretendard', sans-serif;
-      background-color: #f4f6f9;
-      padding: 20px;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
-    }
-    #home-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      text-decoration: none;
-      background-color: #ff66b2;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    #home-button:hover {
-      background-color: #ff3385;
     }
     #chat-container {
       width: 100%;
-      max-width: 600px;
-      height: 70vh;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      max-width: 500px;
+      height: 80vh;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      overflow: hidden;
     }
     #chat-box {
       flex-grow: 1;
       overflow-y: auto;
-      padding-right: 15px;
+      padding: 20px;
       margin-bottom: 20px;
-      max-height: 80%;
+      max-height: 70%;
     }
     .message {
-      margin: 10px 0;
       display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      margin-bottom: 15px;
+      align-items: flex-start;
     }
-    .message.user {
-      justify-content: flex-end;
-    }
-    .message.bot {
-      justify-content: flex-start;
-    }
-    .message div {
-      max-width: 75%;
-      padding: 15px;
-      border-radius: 20px;
-      font-size: 18px;
-      line-height: 1.5;
-    }
-    .user div {
+    .user .message-content {
       background-color: #ff66b2;
       color: white;
-      border-radius: 20px 20px 0 20px;
+      border-radius: 20px;
+      padding: 12px 18px;
+      max-width: 75%;
     }
-    .bot div {
+    .bot .message-content {
       background-color: #e6e6e6;
       color: #333;
-      border-radius: 20px 20px 20px 0;
+      border-radius: 20px;
+      padding: 12px 18px;
+      max-width: 75%;
     }
     #input-area {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-top: 1px solid #ddd;
     }
     input[type="text"] {
-      width: 80%;
-      padding: 15px;
-      border: 1px solid #ccc;
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 16px;
       border-radius: 25px;
-      font-size: 18px;
+      border: 1px solid #ddd;
       margin-right: 10px;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: #ff66b2;
     }
     button {
-      padding: 15px 25px;
+      padding: 12px 20px;
       background-color: #ff66b2;
       color: white;
-      border: none;
       border-radius: 25px;
+      border: none;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
     }
     button:hover {
       background-color: #ff3385;
     }
-    .guide {
-      margin-bottom: 10px;
-      padding: 12px;
-      background-color: #ff66b2;
-      color: white;
-      border-radius: 5px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .button-group {
+    .recommendations {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 30px;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
     }
-    .button-group button {
+    .recommendations button {
       background-color: #e6e6e6;
       color: #333;
-      border: none;
       border-radius: 20px;
-      padding: 15px 30px;
+      padding: 12px 20px;
+      border: none;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 14px;
     }
-    .button-group button:hover {
+    .recommendations button:hover {
       background-color: #ff66b2;
       color: white;
     }
   </style>
 </head>
 <body>
-  <a href="index.html" id="home-button">🏠 홈으로</a>
   <div id="chat-container">
     <div id="chat-box"></div>
-    <div id="input-area">
-      <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" />
-      <button onclick="sendMessage()">보내기</button>
-    </div>
-    <div class="button-group">
-      <button onclick="sendScenario('감정 상태 알려줄게요!')">감정 상태 알려줄게요!</button>
+    <div class="recommendations">
       <button onclick="sendScenario('날씨는 어때?')">날씨는 어때?</button>
-      <button onclick="sendScenario('추천할 영화 있어?')">추천할 영화 있어?</button>
+      <button onclick="sendScenario('오늘 할 일 추천해줘')">오늘 할 일 추천해줘</button>
+      <button onclick="sendScenario('영화 추천해줘')">영화 추천해줘</button>
+    </div>
+    <div id="input-area">
+      <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)">
+      <button onclick="sendMessage()">보내기</button>
     </div>
   </div>
 
   <script>
     const emotionKeywords = {
-      '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐', '힘들어', '상처', '괴로워', '속상해', '허전해', '무기력', '침울', '가슴 아파', '마음 아파', '서러워'],
-      '기쁨': ['행복', '기뻐', '좋아', '즐거', '웃어', '설레', '신나', '뿌듯', '감격', '유쾌', '짜릿해', '기분 좋아', '행복해', '즐거워', '기분 최고'],
-      '분노': ['화나', '짜증', '열받', '짜증나', '미워', '분노', '부글부글', '성질나', '억울해', '속터져', '이해안돼', '짜증나게', '극대노', '승질', '심기 불편'],
-      '감사': ['고마워', '감사', '덕분', '고맙다', '감격', '은혜', '진심으로 감사', '고맙습니다', '감사드립니다'],
-      '사랑': ['사랑', '보고싶', '그리워', '소중', '좋아해', '연애', '애틋', '사랑해', '내 사람', '그대', '그녀', '그이', '내 사랑', '연인'],
-      '불안': ['불안', '걱정', '긴장', '초조', '불편', '두려움', '겁나', '불확실', '무섭', '조마조마', '혼란스러워', '불편해', '마음이 불안', '찝찝해'],
-      '피로': ['피곤', '졸려', '힘들어', '피로', '휴식이 필요', '너무 힘들어'],
-      '당황': ['당황', '어리둥절', '어색', '놀람', '황당', '충격', '당혹'],
-      '사고': ['사고', '부상', '위험', '문제', '사고뭉치', '실수', '패인'],
-      '기타': ['기타', '별로', '보통', '평범', '그냥', '아무렇지 않다']
+      '슬픔': ['슬퍼', '우울', '눈물', '외로', '지쳐', '힘들어'],
+      '기쁨': ['행복', '기뻐', '좋아', '즐거'],
+      '분노': ['화나', '짜증', '열받', '짜증나'],
+      '감사': ['고마워', '감사'],
+      '사랑': ['사랑', '좋아해'],
+      '불안': ['불안', '걱정'],
+      '피로': ['피곤', '졸려'],
     };
 
     function detectEmotion(message) {
@@ -185,34 +154,21 @@
 
       switch (emotion) {
         case '슬픔':
-          return '괜찮아, 내가 옆에 있어줄게 💕';
+          return '괜찮아요, 저는 항상 여기에 있어요. 💖';
         case '기쁨':
-          return '행복하다니 나도 기뻐 😊';
+          return '행복하다니, 너무 기뻐요! 😊';
         case '분노':
-          return '그럴 땐 심호흡이 좋아요. 후~ 😤';
+          return '진정하세요. 심호흡을 해보세요. 😌';
         case '감사':
-          return '천만에요! 당신은 소중한 사람이에요 💖';
+          return '저도 감사합니다! 😊';
         case '사랑':
-          return '사랑은 참 아름다운 감정이죠 💞';
+          return '사랑은 정말 멋진 감정이에요. 💕';
         case '불안':
-          return '불안할 땐 잠시 멈추고 숨을 크게 쉬어봐요 🌿';
+          return '걱정 말아요. 차분히 생각해보세요. 🌿';
         case '피로':
-          return '휴식이 필요해 보이네요. 잠깐 쉬어가세요 🛋️';
-        case '당황':
-          return '무리하지 마세요, 천천히 생각해봐요 😌';
-        case '사고':
-          return '혹시 다친 건 아니죠? 안전을 최우선으로 생각해요 🚑';
-        case '기타':
-          return '그렇구나! 더 이야기해줘 ✨';
-
-        case '날씨':
-          return '날씨는 좋다고 하네요. 밖에 나가서 기분 전환 해보세요 🌞';
-
-        case '영화':
-          return '오늘은 감동적인 영화를 추천드릴게요: "인사이드 아웃"이나 "라라랜드" 어때요? 🎬';
-
+          return '휴식이 필요하군요. 잠깐 쉬어보세요. 🛋️';
         default:
-          return '그렇구나! 더 이야기해줘 ✨';
+          return '알겠습니다! 더 얘기해줘요. 😊';
       }
     }
 
@@ -225,14 +181,14 @@
       // 사용자 메시지 추가
       const userDiv = document.createElement('div');
       userDiv.classList.add('message', 'user');
-      userDiv.innerHTML = `<div>${userMessage}</div>`;
+      userDiv.innerHTML = `<div class="message-content">${userMessage}</div>`;
       chatBox.appendChild(userDiv);
 
       // 봇 응답 생성
       const botReply = generateReply(userMessage);
       const botDiv = document.createElement('div');
       botDiv.classList.add('message', 'bot');
-      botDiv.innerHTML = `<div>${botReply}</div>`;
+      botDiv.innerHTML = `<div class="message-content">${botReply}</div>`;
       chatBox.appendChild(botDiv);
 
       // 입력 필드 초기화
@@ -250,10 +206,10 @@
       const chatBox = document.getElementById('chat-box');
       
       // 시나리오 안내 메시지 추가
-      const guideDiv = document.createElement('div');
-      guideDiv.classList.add('guide');
-      guideDiv.innerHTML = `<div>${message}</div>`;
-      chatBox.appendChild(guideDiv);
+      const scenarioDiv = document.createElement('div');
+      scenarioDiv.classList.add('message', 'bot');
+      scenarioDiv.innerHTML = `<div class="message-content">${message}</div>`;
+      chatBox.appendChild(scenarioDiv);
     }
   </script>
 </body>
