@@ -6,10 +6,13 @@
   <style>
     body {
       font-family: 'Pretendard', sans-serif;
-      background-color: #fff0f5;
+      background-color: #f4f6f9;
       padding: 20px;
-      text-align: center;
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     #home-button {
       position: absolute;
@@ -26,15 +29,22 @@
       background-color: #ff3385;
     }
     #chat-container {
-      width: 90%;
-      max-width: 500px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 400px;
       background: white;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      height: 400px;
+      display: flex;
+      flex-direction: column;
+      height: 500px;
       overflow-y: auto;
+    }
+    #chat-box {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      margin-bottom: 20px;
     }
     .message {
       margin: 10px 0;
@@ -50,7 +60,7 @@
     }
     .message div {
       max-width: 70%;
-      padding: 10px;
+      padding: 12px;
       border-radius: 20px;
       font-size: 16px;
       line-height: 1.5;
@@ -58,31 +68,34 @@
     .user div {
       background-color: #ff66b2;
       color: white;
+      border-radius: 20px 20px 0 20px;
     }
     .bot div {
       background-color: #e6e6e6;
       color: #333;
+      border-radius: 20px 20px 20px 0;
     }
     #input-area {
-      margin-top: 20px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
     }
     input[type="text"] {
       width: 80%;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 25px;
       font-size: 16px;
+      margin-right: 10px;
     }
     button {
-      padding: 10px 15px;
-      margin-left: 10px;
+      padding: 12px 20px;
       background-color: #ff66b2;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 25px;
       cursor: pointer;
+      font-size: 16px;
     }
     button:hover {
       background-color: #ff3385;
@@ -91,14 +104,12 @@
 </head>
 <body>
   <a href="index.html" id="home-button">🏠 홈으로</a>
-  <h1>💬 AI 건희봇</h1>
   <div id="chat-container">
     <div id="chat-box"></div>
-  </div>
-
-  <div id="input-area">
-    <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" />
-    <button onclick="sendMessage()">보내기</button>
+    <div id="input-area">
+      <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" />
+      <button onclick="sendMessage()">보내기</button>
+    </div>
   </div>
 
   <script>
@@ -211,19 +222,19 @@
       userDiv.className = 'message user';
       userDiv.innerHTML = `<div>${userMessage}</div>`;
       chatBox.appendChild(userDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
 
-      // 봇 응답 추가
+      // 봇의 응답 생성
+      const botMessage = generateReply(userMessage);
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
-      botDiv.innerHTML = `<div>${generateReply(userMessage)}</div>`;
+      botDiv.innerHTML = `<div>${botMessage}</div>`;
       chatBox.appendChild(botDiv);
-
-      // 입력 필드 초기화
-      input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;
+
+      input.value = '';
     }
 
-    // Enter 키로 메시지 전송
     function checkEnter(event) {
       if (event.key === 'Enter') {
         sendMessage();
