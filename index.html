@@ -18,7 +18,6 @@
       height: 100%;
     }
 
-    /* 네비게이션 바 */
     nav {
       background-color: #ff66b2;
       display: flex;
@@ -142,7 +141,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 하트 떨어지는 효과 */
     .heart {
       position: fixed;
       top: -30px;
@@ -166,7 +164,6 @@
       }
     }
 
-    /* 팡 터지는 효과 */
     .heart.clicked {
       animation: explode 0.5s forwards;
     }
@@ -203,7 +200,6 @@
   </style>
 </head>
 <body>
-  <!-- 네비게이션 -->
   <nav>
     <a href="index.html" class="title-link">🎉 수현이의 생일 홈</a>
     <div class="nav-links">
@@ -212,7 +208,6 @@
     </div>
   </nav>
 
-  <!-- 메인 콘텐츠 -->
   <div class="container">
     <h2>🎂 생일 축하해, 수현아!</h2>
     <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
@@ -223,6 +218,17 @@
       <button onclick="playSong('happy_birthday.mp3')">Happy</button>
       <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
       <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
+    </div>
+
+    <!-- 유튜브 플레이리스트 섹션 -->
+    <div class="music-section">
+      <p>📺 유튜브 플레이리스트도 들어볼래?</p>
+      <iframe width="100%" height="315"
+        src="https://www.youtube.com/embed/videoseries?list=PLabcd1234xyz"
+        title="YouTube playlist player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
 
     <!-- 추억 사진 섹션 -->
@@ -243,7 +249,6 @@
     © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
   </footer>
 
-  <!-- 하트 떨어지는 스크립트 -->
   <script>
     function createHeart() {
       const heart = document.createElement("div");
@@ -252,7 +257,6 @@
       heart.style.left = Math.random() * window.innerWidth + "px";
       heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
 
-      // 클릭 시 팡 터지는 효과
       heart.addEventListener("click", () => {
         heart.classList.add("clicked");
         setTimeout(() => {
@@ -261,7 +265,6 @@
       });
 
       document.body.appendChild(heart);
-
       setTimeout(() => {
         heart.remove();
       }, 5000);
@@ -270,7 +273,6 @@
     setInterval(createHeart, 1000);
   </script>
 
-  <!-- 음악 재생 함수 -->
   <script>
     function playSong(song) {
       const audioPlayer = document.getElementById('audioPlayer');
