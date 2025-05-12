@@ -33,27 +33,47 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       padding: 20px;
+      height: 400px;
+      overflow-y: auto;
     }
     .message {
       margin: 10px 0;
-      text-align: left;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
     }
-    .user {
+    .message.user {
+      justify-content: flex-end;
+    }
+    .message.bot {
+      justify-content: flex-start;
+    }
+    .message div {
+      max-width: 70%;
+      padding: 10px;
+      border-radius: 20px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .user div {
+      background-color: #ff66b2;
+      color: white;
+    }
+    .bot div {
+      background-color: #e6e6e6;
       color: #333;
-      font-weight: bold;
-    }
-    .bot {
-      color: #ff66b2;
-      margin-left: 10px;
     }
     #input-area {
       margin-top: 20px;
+      display: flex;
+      justify-content: center;
     }
     input[type="text"] {
-      width: 70%;
+      width: 80%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      font-size: 16px;
     }
     button {
       padding: 10px 15px;
@@ -74,10 +94,11 @@
   <h1>💬 AI 건희봇</h1>
   <div id="chat-container">
     <div id="chat-box"></div>
-    <div id="input-area">
-      <input type="text" id="user-input" placeholder="메시지를 입력하세요..." />
-      <button onclick="sendMessage()">보내기</button>
-    </div>
+  </div>
+
+  <div id="input-area">
+    <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" />
+    <button onclick="sendMessage()">보내기</button>
   </div>
 
   <script>
@@ -185,18 +206,28 @@
       const userMessage = input.value.trim();
       if (!userMessage) return;
 
+      // 사용자 메시지 추가
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
-      userDiv.textContent = '나: ' + userMessage;
+      userDiv.innerHTML = `<div>${userMessage}</div>`;
       chatBox.appendChild(userDiv);
 
+      // 봇 응답 추가
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
-      botDiv.textContent = '건희봇: ' + generateReply(userMessage);
+      botDiv.innerHTML = `<div>${generateReply(userMessage)}</div>`;
       chatBox.appendChild(botDiv);
 
+      // 입력 필드 초기화
       input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Enter 키로 메시지 전송
+    function checkEnter(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
     }
   </script>
 </body>
