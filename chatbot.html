@@ -45,12 +45,13 @@
       overflow-y: auto;
       padding-right: 10px;
       margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
     }
     .message {
       margin: 10px 0;
       display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      align-items: flex-start; /* Changed to flex-start */
     }
     .message.user {
       justify-content: flex-end;
@@ -58,22 +59,71 @@
     .message.bot {
       justify-content: flex-start;
     }
-    .message div {
+    .message .profile-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      margin-left: 10px;
+      background-color: #ddd; /* 임시 배경색 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: #333;
+      overflow: hidden;
+    }
+    .message.user .profile-image {
+      margin-left: 10px;
+      margin-right: 0;
+    }
+    .message div.bubble {
       max-width: 70%;
       padding: 12px;
-      border-radius: 20px;
+      border-radius: 15px; /* Reduced border-radius for a more bubble-like look */
       font-size: 16px;
       line-height: 1.5;
+      position: relative; /* For the speech bubble tail */
     }
-    .user div {
+    .user div.bubble {
       background-color: #ff66b2;
       color: white;
-      border-radius: 20px 20px 0 20px;
+      border-radius: 15px 15px 0 15px;
     }
-    .bot div {
+    .bot div.bubble {
       background-color: #e6e6e6;
       color: #333;
-      border-radius: 20px 20px 20px 0;
+      border-radius: 15px 15px 15px 0;
+    }
+    /* Speech bubble tail for user */
+    .user div.bubble::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: -10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid #ff66b2;
+      border-left: 10px solid transparent;
+    }
+    /* Speech bubble tail for bot */
+    .bot div.bubble::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid #e6e6e6;
+      border-right: 10px solid transparent;
+    }
+    .message .time {
+      font-size: 10px;
+      color: #888;
+      margin-top: 3px;
+    }
+    .message.user .time {
+      text-align: right;
     }
     #input-area {
       display: flex;
@@ -99,6 +149,18 @@
     }
     button:hover {
       background-color: #ff3385;
+    }
+    /* Webkit 스크롤바 스타일 */
+    #chat-box::-webkit-scrollbar {
+      width: 8px;
+    }
+    #chat-box::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: 10px;
+    }
+    #chat-box::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -197,15 +259,10 @@
           return '혹시 다친 건 아니죠? 안전을 최우선으로 생각해요 🚑';
         case '기타':
           return '그렇구나! 더 이야기해줘 ✨';
-
-        // 날씨 요청 처리
         case '날씨':
           return '날씨는 좋다고 하네요. 밖에 나가서 기분 전환 해보세요 🌞';
-
-        // 영화 추천
         case '영화':
           return '오늘은 감동적인 영화를 추천드릴게요: "인사이드 아웃"이나 "라라랜드" 어때요? 🎬';
-
         default:
           return '그렇구나! 더 이야기해줘 ✨';
       }
@@ -220,7 +277,11 @@
       // 사용자 메시지 추가
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
-      userDiv.innerHTML = `<div>${userMessage}</div>`;
+      userDiv.innerHTML = `
+        <div class="profile-image">👤</div>
+        <div class="bubble">${userMessage}</div>
+        <div class="time">${getCurrentTime()}</div>
+      `;
       chatBox.appendChild(userDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -228,7 +289,11 @@
       const botMessage = generateReply(userMessage);
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
-      botDiv.innerHTML = `<div>${botMessage}</div>`;
+      botDiv.innerHTML = `
+        <div class="profile-image">🤖</div>
+        <div class="bubble">${botMessage}</div>
+        <div class="time">${getCurrentTime()}</div>
+      `;
       chatBox.appendChild(botDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -239,6 +304,13 @@
       if (event.key === 'Enter') {
         sendMessage();
       }
+    }
+
+    function getCurrentTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      return `${hours}:${minutes}`;
     }
   </script>
 </body>
