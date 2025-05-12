@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>수현이 생일 축하해 💖</title>
   <style>
     * {
@@ -18,7 +18,6 @@
       height: 100%;
     }
 
-    /* 네비게이션 바 */
     nav {
       background-color: #ff66b2;
       display: flex;
@@ -142,7 +141,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 하트 떨어지는 효과 */
     .heart {
       position: fixed;
       top: -30px;
@@ -166,7 +164,6 @@
       }
     }
 
-    /* 팡 터지는 효과 */
     .heart.clicked {
       animation: explode 0.5s forwards;
     }
@@ -217,33 +214,30 @@
     <h2>🎂 생일 축하해, 수현아!</h2>
     <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
-    <!-- 음악 선택 -->
+    <!-- YouTube 음악 버튼 -->
     <div class="music-section">
-      <p>🎵 생일 기념 음악을 골라봐!</p>
-      <button onclick="playSong('happy_birthday.mp3')">Happy</button>
-      <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
-      <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
+      <p>🎵 생일 노래를 들어봐!</p>
+      <button onclick="seekTo(0)">인트로부터 🎶</button>
+      <button onclick="seekTo(30)">30초부터 💫</button>
+      <button onclick="seekTo(60)">1분부터 🌟</button>
     </div>
 
-    <!-- 추억 사진 섹션 -->
+    <!-- 추억 사진 -->
     <div class="photo-gallery">
-      <img src="https://placekitten.com/200/200" alt="기억1">
-      <img src="https://placekitten.com/201/200" alt="기억2">
-      <img src="https://placekitten.com/202/200" alt="기억3">
+      <img src="https://placekitten.com/200/200" alt="기억1" />
+      <img src="https://placekitten.com/201/200" alt="기억2" />
+      <img src="https://placekitten.com/202/200" alt="기억3" />
     </div>
   </div>
 
-  <!-- 오디오 -->
-  <audio id="audioPlayer" style="display:none">
-    <source id="audioSource" src="" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+  <!-- 숨겨진 YouTube 플레이어 -->
+  <div id="player" style="display: none;"></div>
 
   <footer>
     © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
   </footer>
 
-  <!-- 하트 떨어지는 스크립트 -->
+  <!-- 하트 떨어지는 효과 -->
   <script>
     function createHeart() {
       const heart = document.createElement("div");
@@ -252,7 +246,6 @@
       heart.style.left = Math.random() * window.innerWidth + "px";
       heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
 
-      // 클릭 시 팡 터지는 효과
       heart.addEventListener("click", () => {
         heart.classList.add("clicked");
         setTimeout(() => {
@@ -261,7 +254,6 @@
       });
 
       document.body.appendChild(heart);
-
       setTimeout(() => {
         heart.remove();
       }, 5000);
@@ -270,14 +262,35 @@
     setInterval(createHeart, 1000);
   </script>
 
-  <!-- 음악 재생 함수 -->
+  <!-- YouTube IFrame API 로드 -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- YouTube 플레이어 제어 스크립트 -->
   <script>
-    function playSong(song) {
-      const audioPlayer = document.getElementById('audioPlayer');
-      const audioSource = document.getElementById('audioSource');
-      audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
-      audioPlayer.load();
-      audioPlayer.play();
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'hoLxuyV9qz8', // 🎵 이 부분에 원하는 유튜브 영상 ID 넣으세요
+        playerVars: {
+          'autoplay': 0,
+          'controls': 0,
+          'mute': 0
+        },
+        events: {
+          'onReady': function(event) {
+            // Optional: 자동 재생 X
+          }
+        }
+      });
+    }
+
+    function seekTo(seconds) {
+      if (player && player.seekTo) {
+        player.seekTo(seconds, true);
+        player.playVideo();
+      }
     }
   </script>
 </body>
