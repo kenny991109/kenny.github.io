@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>감성 챗봇</title>
   <style>
-    /* 기존 CSS 코드는 그대로 유지합니다. */
+    /* 수정된 CSS */
     body {
       font-family: 'Pretendard', sans-serif;
-      background-color: #f8f9fa;
+      background-color: #f8f9fa; /* 좀 더 밝은 회색 배경 */
       padding: 20px;
       display: flex;
       justify-content: center;
@@ -149,15 +149,9 @@
     }
     #input-area {
       display: flex;
-      flex-direction: column; /* 자동 완성 목록을 위해 flex-direction 변경 */
-      align-items: flex-end; /* 보내기 버튼 오른쪽 정렬 유지 */
+      align-items: center;
       border-top: 1px solid #eee;
       padding-top: 15px;
-    }
-    #user-input-container {
-      display: flex;
-      width: 100%; /* 입력창 전체 너비 사용 */
-      margin-bottom: 5px; /* 자동 완성 목록과의 간격 */
     }
     #user-input {
       flex-grow: 1;
@@ -166,27 +160,6 @@
       border-radius: 25px;
       font-size: 16px;
       margin-right: 10px;
-    }
-    #autocomplete-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      border: 1px solid #ccc;
-      border-top: none;
-      background-color: #fff;
-      border-radius: 0 0 5px 5px;
-      width: 100%;
-      max-height: 150px;
-      overflow-y: auto;
-      z-index: 10; /* 다른 요소 위에 표시 */
-    }
-    #autocomplete-list li {
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    #autocomplete-list li:hover {
-      background-color: #f0f0f0;
     }
     #send-button {
       background-color: #5865F2;
@@ -223,10 +196,7 @@
     </div>
     <div id="chat-box"></div>
     <div id="input-area">
-      <div id="user-input-container">
-        <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" oninput="autocomplete()" />
-        <ul id="autocomplete-list"></ul>
-      </div>
+      <input type="text" id="user-input" placeholder="메시지를 입력하세요..." onkeydown="checkEnter(event)" />
       <button id="send-button">➤</button>
     </div>
   </div>
@@ -235,35 +205,134 @@
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
-    const autocompleteList = document.getElementById('autocomplete-list');
 
-    const emotionKeywords = { /* 기존 emotionKeywords 객체 */ };
-    const customReplies = { /* 기존 customReplies 객체 */ };
+    const emotionKeywords = {
+      '슬픔': [
+        '슬퍼', '우울', '눈물', '외로', '지쳐', '힘들어', '상처', '괴로워', '속상해',
+        '허전해', '무기력', '침울', '가슴 아파', '마음 아파', '서러워'
+      ],
+      '기쁨': [
+        '행복', '기뻐', '좋아', '즐거', '웃어', '설레', '신나', '뿌듯', '감격',
+        '유쾌', '짜릿해', '기분 좋아', '행복해', '즐거워', '기분 최고'
+      ],
+      '분노': [
+        '화나', '짜증', '열받', '짜증나', '미워', '분노', '부글부글', '성질나',
+        '억울해', '속터져', '이해안돼', '짜증나게', '극대노', '승질', '심기 불편'
+      ],
+      '감사': [
+        '고마워', '감사', '덕분', '고맙다', '감격', '은혜', '진심으로 감사',
+        '고맙습니다', '감사드립니다'
+      ],
+      '사랑': [
+        '사랑', '보고싶', '그리워', '소중', '좋아해', '연애', '애틋', '사랑해',
+        '내 사람', '그대', '그녀', '그이', '내 사랑', '연인'
+      ],
+      '불안': [
+        '불안', '걱정', '긴장', '초조', '불편', '두려움', '겁나', '불확실',
+        '무섭', '조마조마', '혼란스러워', '불편해', '마음이 불안', '찝찝해'
+      ],
+      '피로': [
+        '피곤', '졸려', '힘들어', '지친다', '피로', '휴식이 필요', '너무 힘들어'
+      ],
+      '당황': [
+        '당황', '어리둥절', '어색', '놀람', '황당', '충격', '당혹'
+      ],
+      '사고': [
+        '사고', '부상', '위험', '문제', '사고뭉치', '실수', '패인'
+      ],
+      '기타': [
+        '기타', '별로', '보통', '평범', '그냥', '아무렇지 않다'
+      ]
+    };
 
-    // 자동 완성에 사용될 질문 목록
-    const questionList = [
-      '오늘 날씨 어때?',
-      '재미있는 영화 추천해줘',
-      '힘들어',
-      '사랑해',
-      '뭐 했어?',
-      '심심해',
-      '고마워',
-      '우울해',
-      '화나',
-      '보고 싶어',
-      '졸려',
-      '배고파',
-      '오늘 기분 어때?',
-      '나 칭찬해줘',
-      '좋아하는 색깔은 뭐야?'
-      // 더 많은 질문 추가 가능
-    ];
+    const customReplies = {
+      '오늘 뭐 했어?': [
+        '오늘 하루는 어떠셨나요? 저는 당신과 이야기할 준비를 하고 있었어요.',
+        '저는 당신의 메시지를 기다리고 있었어요. 당신의 하루는 어땠나요?'
+      ],
+      '심심해': [
+        '무료하시군요! 혹시 재미있는 이야기를 해드릴까요?',
+        '저랑 같이 간단한 게임이라도 해볼까요?'
+      ],
+      '배고파': [
+        '맛있는 식사 하셨나요? 뭘 드셨는지 궁금하네요.',
+        '혹시 뭐 드시고 싶으신 건 없으세요? 제가 맛집을 찾아볼 수도 있어요!'
+      ]
+      // 더 많은 사용자 정의 질문과 답변 추가 가능
+    };
 
-    function detectEmotion(message) { /* 기존 detectEmotion 함수 */ }
-    function generateReply(message) { /* 기존 generateReply 함수 */ }
-    function displayMessage(sender, message) { /* 기존 displayMessage 함수 */ }
-    function getCurrentTime() { /* 기존 getCurrentTime 함수 */ }
+    function detectEmotion(message) {
+      const scores = {};
+      for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
+        scores[emotion] = keywords.reduce((acc, word) => {
+          return acc + (message.includes(word) ? 1 : 0);
+        }, 0);
+      }
+
+      let maxScore = 0;
+      let detected = '기타';
+      for (const [emotion, score] of Object.entries(scores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          detected = emotion;
+        }
+      }
+
+      return detected;
+    }
+
+    function generateReply(message) {
+      message = message.toLowerCase();
+
+      // 사용자 정의 답변 먼저 확인
+      if (customReplies.hasOwnProperty(message)) {
+        const replies = customReplies[message];
+        return replies[Math.floor(Math.random() * replies.length)]; // 랜덤 답변
+      }
+
+      const emotion = detectEmotion(message);
+
+      switch (emotion) {
+        case '슬픔':
+          return '괜찮아, 내가 옆에 있어줄게 💕 힘든 일이 있으면 언제든 털어놓으세요.';
+        case '기쁨':
+          return '행복하다니 나도 기뻐 😊 오늘 좋은 일들이 많았나 보네요!';
+        case '분노':
+          return '그럴 땐 심호흡이 좋아요. 후~ 😤 무슨 일이 있으셨나요? 이야기해주시면 속이 좀 풀릴 거예요.';
+        case '감사':
+          return '천만에요! 당신은 소중한 사람이에요 💖 제가 도움이 될 수 있어서 기쁩니다.';
+        case '사랑':
+          return '사랑은 참 아름다운 감정이죠 💞 당신의 마음이 느껴져서 저도 따뜻해지네요.';
+        case '불안':
+          return '불안할 땐 잠시 멈추고 숨을 크게 쉬어봐요 🌿 무슨 걱정이 있으신가요? 함께 이야기해봐요.';
+        case '피로':
+          return '휴식이 필요해 보이네요. 잠깐 쉬어가세요 🛋️ 따뜻한 차라도 한잔 하시는 건 어떠세요?';
+        case '당황':
+          return '무리하지 마세요, 천천히 생각해봐요 😌 무슨 일이 있었는지 차근차근 이야기해주세요.';
+        case '사고':
+          return '혹시 다친 건 아니죠? 안전을 최우선으로 생각해요 🚑 괜찮으신지 걱정되네요.';
+        case '기타':
+          return '그렇구나! 더 이야기해줘 ✨ 당신의 이야기에 귀 기울이고 있어요.';
+        case '날씨':
+          return '날씨 정보를 아직 준비 중이에요. 곧 더 유용한 기능을 제공해 드릴 수 있도록 노력할게요! ☀️';
+        case '영화':
+          return '영화 추천 기능을 준비하고 있어요. 조금만 기다려주시면 당신의 취향에 맞는 영화를 추천해 드릴게요! 🎬';
+        default:
+          return '음... 무슨 말씀이신지 조금 더 자세히 설명해주실 수 있을까요? ✨';
+      }
+    }
+
+    function displayMessage(sender, message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      messageDiv.innerHTML = `
+        <div class="profile-image">${sender === 'user' ? '👤' : '🤖'}</div>
+        <div class="bubble">${message}</div>
+        <div class="time">${getCurrentTime()}</div>
+      `;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
     function sendMessage(text) {
       let userMessage = text ? text : userInput.value.trim();
@@ -271,7 +340,6 @@
 
       displayMessage('user', userMessage);
       userInput.value = '';
-      autocompleteList.innerHTML = ''; // 메시지 전송 후 자동 완성 목록 숨김
 
       setTimeout(() => {
         const botReply = generateReply(userMessage);
@@ -285,61 +353,14 @@
       }
     }
 
-    function autocomplete() {
-      const inputText = userInput.value.toLowerCase();
-      autocompleteList.innerHTML = ''; // 이전 추천 목록 비우기
-
-      if (!inputText) return;
-
-      const suggestions = questionList.filter(question =>
-        question.toLowerCase().startsWith(inputText)
-      );
-
-      suggestions.forEach(suggestion => {
-        const listItem = document.createElement('li');
-        listItem.textContent = suggestion;
-        listItem.addEventListener('click', () => {
-          userInput.value = suggestion;
-          autocompleteList.innerHTML = ''; // 선택 후 목록 숨김
-        });
-        autocompleteList.appendChild(listItem);
-      });
+    function getCurrentTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      return `${hours}:${minutes}`;
     }
 
     sendButton.addEventListener('click', sendMessage);
-
-    // 페이지 로드 시 자동 완성 목록 숨김
-    autocompleteList.style.display = 'none';
-
-    // 입력창 focus 시 자동 완성 목록 표시 (입력 없어도 전체 목록 보이게 하고 싶다면)
-    userInput.addEventListener('focus', () => {
-      autocompleteList.style.display = userInput.value ? 'block' : 'none';
-      if (!userInput.value) {
-        autocompleteList.innerHTML = '';
-        questionList.forEach(suggestion => {
-          const listItem = document.createElement('li');
-          listItem.textContent = suggestion;
-          listItem.addEventListener('click', () => {
-            userInput.value = suggestion;
-            autocompleteList.innerHTML = '';
-          });
-          autocompleteList.appendChild(listItem);
-        });
-        if (questionList.length > 0) autocompleteList.style.display = 'block';
-      }
-    });
-
-    // 입력창 blur 시 자동 완성 목록 숨김 (선택하지 않고 벗어날 경우)
-    userInput.addEventListener('blur', () => {
-      setTimeout(() => {
-        autocompleteList.style.display = 'none';
-      }, 200); // 약간의 딜레이를 주어 클릭 이벤트 처리
-    });
-
-    // 입력 내용 변경 시 자동 완성 목록 표시
-    userInput.addEventListener('input', () => {
-      autocompleteList.style.display = userInput.value ? 'block' : 'none';
-    });
   </script>
 </body>
 </html>
