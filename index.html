@@ -8,6 +8,7 @@
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
       font-family: 'Pretendard', sans-serif;
@@ -16,6 +17,8 @@
       overflow-x: hidden;
       height: 100%;
     }
+
+    /* 네비게이션 바 */
     nav {
       background-color: #ff66b2;
       display: flex;
@@ -27,16 +30,19 @@
       top: 0;
       z-index: 100;
     }
+
     nav a.title-link {
       color: white;
       text-decoration: none;
       font-size: 1.5em;
       font-weight: bold;
     }
+
     .nav-links {
       display: flex;
       gap: 25px;
     }
+
     .nav-links a {
       color: white;
       text-decoration: none;
@@ -44,6 +50,7 @@
       position: relative;
       padding: 5px;
     }
+
     .nav-links a::after {
       content: "";
       position: absolute;
@@ -54,9 +61,11 @@
       background-color: white;
       transition: width 0.3s;
     }
+
     .nav-links a:hover::after {
       width: 100%;
     }
+
     .container {
       max-width: 800px;
       margin: 50px auto;
@@ -66,11 +75,13 @@
       box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
       text-align: center;
     }
+
     h2 {
       font-size: 2em;
       margin-bottom: 10px;
       animation: fadeIn 1.5s ease-in-out;
     }
+
     #message {
       font-size: 1.2em;
       margin: 20px 0 30px;
@@ -79,10 +90,12 @@
       overflow: hidden;
       border-right: 3px solid pink;
     }
-    .music-section, .youtube-section {
+
+    .music-section {
       margin: 30px 0;
     }
-    .music-section button, .youtube-section button {
+
+    .music-section button {
       background-color: #ffe0ec;
       color: #ff3385;
       border: none;
@@ -91,9 +104,11 @@
       margin: 5px;
       cursor: pointer;
     }
-    .music-section button:hover, .youtube-section button:hover {
+
+    .music-section button:hover {
       background-color: #ffb3d9;
     }
+
     .photo-gallery {
       display: flex;
       flex-wrap: wrap;
@@ -101,6 +116,7 @@
       gap: 10px;
       margin-top: 20px;
     }
+
     .photo-gallery img {
       width: 150px;
       height: 150px;
@@ -108,20 +124,25 @@
       border-radius: 15px;
       box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
+
     footer {
       margin-top: 50px;
       text-align: center;
       color: #aaa;
       font-size: 0.9em;
     }
+
     @keyframes typing {
       from { width: 0; }
       to { width: 100%; }
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* 하트 떨어지는 효과 */
     .heart {
       position: fixed;
       top: -30px;
@@ -133,6 +154,7 @@
       animation-duration: 5s;
       animation-timing-function: ease-in-out;
     }
+
     @keyframes fallHeart {
       0% {
         transform: translateY(0) scale(1);
@@ -143,9 +165,12 @@
         opacity: 0;
       }
     }
+
+    /* 팡 터지는 효과 */
     .heart.clicked {
       animation: explode 0.5s forwards;
     }
+
     @keyframes explode {
       0% {
         transform: scale(1);
@@ -156,6 +181,7 @@
         opacity: 0;
       }
     }
+
     @media (max-width: 600px) {
       .nav-links {
         flex-direction: column;
@@ -163,10 +189,12 @@
         gap: 10px;
         margin-top: 10px;
       }
+
       nav {
         flex-direction: column;
         align-items: flex-start;
       }
+
       .container {
         width: 100%;
         padding: 20px;
@@ -175,6 +203,7 @@
   </style>
 </head>
 <body>
+  <!-- 네비게이션 -->
   <nav>
     <a href="index.html" class="title-link">🎉 수현이의 생일 홈</a>
     <div class="nav-links">
@@ -183,23 +212,17 @@
     </div>
   </nav>
 
+  <!-- 메인 콘텐츠 -->
   <div class="container">
     <h2>🎂 생일 축하해, 수현아!</h2>
     <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
 
-    <!-- 기존 음악 선택 -->
+    <!-- 음악 선택 -->
     <div class="music-section">
       <p>🎵 생일 기념 음악을 골라봐!</p>
       <button onclick="playSong('happy_birthday.mp3')">Happy</button>
       <button onclick="playSong('10cm_birthday.mp3')">10cm</button>
       <button onclick="playSong('birthday_stevie_wonder.mp3')">Stevie Wonder</button>
-    </div>
-
-    <!-- 🎵 유튜브 커스텀 음악 추가 -->
-    <div class="youtube-section">
-      <p>💖 수현이를 위한 선곡 리스트</p>
-      <button onclick="playYoutube('piEFZVY3yBE', '🎶 첫 만남은 너무 어려워 🎶<br>어색한 인사 뒤에 숨겨진 마음<br>하지만 그날 너를 보고 느꼈어')">첫 만남은 너무 어려워 (투어스)</button>
-      <div id="lyrics" style="margin-top: 15px; font-size: 1.1em; color: #333;"></div>
     </div>
 
     <!-- 추억 사진 섹션 -->
@@ -216,10 +239,6 @@
     Your browser does not support the audio element.
   </audio>
 
-  <!-- 유튜브 플레이어 (숨김) -->
-  <iframe id="ytplayer" type="text/html" width="0" height="0"
-    src="" frameborder="0" allow="autoplay"></iframe>
-
   <footer>
     © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
   </footer>
@@ -232,17 +251,22 @@
       heart.innerText = "💖";
       heart.style.left = Math.random() * window.innerWidth + "px";
       heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+      // 클릭 시 팡 터지는 효과
       heart.addEventListener("click", () => {
         heart.classList.add("clicked");
         setTimeout(() => {
           heart.remove();
         }, 500);
       });
+
       document.body.appendChild(heart);
+
       setTimeout(() => {
         heart.remove();
       }, 5000);
     }
+
     setInterval(createHeart, 1000);
   </script>
 
@@ -254,17 +278,6 @@
       audioSource.src = "https://github.com/yourusername/yourrepository/raw/main/" + song;
       audioPlayer.load();
       audioPlayer.play();
-    }
-  </script>
-
-  <!-- 유튜브 재생 함수 -->
-  <script>
-    function playYoutube(videoId, lyrics) {
-      const player = document.getElementById("ytplayer");
-      player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-      const lyricsBox = document.getElementById("lyrics");
-      lyricsBox.innerHTML = lyrics;
-      lyricsBox.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
