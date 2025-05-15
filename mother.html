@@ -2,9 +2,11 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>엄마 생일 축하드림다~ 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>어머니 생신 축하합니다 💐</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
+
     * {
       box-sizing: border-box;
     }
@@ -14,27 +16,27 @@
       font-family: 'Pretendard', sans-serif;
       background: linear-gradient(to bottom, #f0f4f8, #ffffff);
       color: #333;
-      overflow-x: hidden;
-      height: 100%;
+      min-height: 100vh;
     }
 
     nav {
-      background-color: #4a6fa5; /* 차분한 파랑 계열 */
+      background-color: #4a6fa5;
+      color: white;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       padding: 15px 30px;
-      color: white;
+      align-items: center;
       position: sticky;
       top: 0;
       z-index: 100;
+      font-weight: 600;
     }
 
     nav a.title-link {
       color: white;
       text-decoration: none;
-      font-size: 1.5em;
-      font-weight: bold;
+      font-size: 1.6em;
+      font-weight: 700;
     }
 
     .nav-links {
@@ -45,19 +47,19 @@
     .nav-links a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
-      position: relative;
+      font-weight: 600;
       padding: 5px;
+      position: relative;
     }
 
     .nav-links a::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: -3px;
+      bottom: -4px;
       width: 0;
       height: 2px;
-      background-color: white;
+      background-color: #c1d3f4;
       transition: width 0.3s;
     }
 
@@ -66,179 +68,189 @@
     }
 
     .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 40px;
-      background-color: #fafafa;
+      max-width: 780px;
+      margin: 50px auto 80px;
+      background-color: #ffffff;
+      padding: 40px 50px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(74, 111, 165, 0.15);
+      box-shadow: 0 8px 25px rgba(74, 111, 165, 0.15);
       text-align: center;
+      color: #2c3e50;
     }
 
     h2 {
-      font-size: 2em;
-      margin-bottom: 10px;
-      color: #2c3e50;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    #message {
-      font-size: 1.2em;
-      margin: 20px 0 30px;
-      color: #4a6fa5;
-      white-space: normal;
-      animation: fadeIn 2s ease-in-out;
-      border: none;
-    }
-
-    .music-section {
-      margin: 30px 0;
-    }
-
-    .music-section p {
-      font-weight: bold;
-      color: #4a6fa5;
-      margin-bottom: 10px;
-    }
-
-    .music-section button {
-      background-color: #d7e1f0;
+      font-weight: 700;
+      font-size: 2.2em;
+      margin-bottom: 15px;
+      user-select: none;
       color: #3b5998;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 15px;
-      margin: 5px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s;
     }
 
-    .music-section button:hover {
-      background-color: #a9bddb;
+    p.intro-text {
+      font-size: 1.1em;
+      margin-bottom: 35px;
+      line-height: 1.5;
+      color: #5a6a82;
     }
 
-    .photo-gallery {
+    /* 편지 봉투 스타일 */
+    .letter-wrapper {
+      margin-top: 40px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
+      user-select: none;
     }
 
-    .photo-gallery img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
-      filter: grayscale(10%);
-      transition: filter 0.3s;
+    .envelope {
+      width: 180px;
+      height: 130px;
+      background: #f9e5e0;
+      border: 2px solid #c9a9a0;
+      border-radius: 12px 12px 10px 10px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(201, 169, 160, 0.4);
+      transition: transform 0.35s ease;
+      overflow: visible;
     }
 
-    .photo-gallery img:hover {
-      filter: none;
+    /* 봉투 윗부분 삼각형 모양 */
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0; 
+      height: 0;
+      border-left: 90px solid transparent;
+      border-right: 90px solid transparent;
+      border-bottom: 55px solid #f3c6be;
+      border-radius: 10px 10px 0 0;
+      transition: border-bottom-color 0.35s ease;
+    }
+
+    /* 봉투 열렸을 때 모양 */
+    .envelope.open {
+      transform: translateY(-50px) rotateX(15deg);
+    }
+
+    .envelope.open::before {
+      border-bottom-color: #f9e5e0;
+    }
+
+    /* 편지지 스타일 */
+    .letter {
+      position: absolute;
+      top: 55px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 25px 20px;
+      opacity: 0;
+      pointer-events: none;
+      user-select: text;
+      transition: opacity 0.6s ease 0.3s;
+      font-size: 1.05em;
+      line-height: 1.5;
+      color: #444;
+      overflow-y: auto;
+      max-height: 200px;
+    }
+
+    /* 편지 나타날 때 */
+    .envelope.open .letter {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     footer {
-      margin-top: 50px;
       text-align: center;
-      color: #999;
+      padding: 20px;
       font-size: 0.9em;
+      color: #777;
+      user-select: none;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        margin-top: 10px;
-      }
-
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
+    @media (max-width: 480px) {
       .container {
-        width: 100%;
-        padding: 20px;
+        padding: 30px 20px;
+        margin: 30px 15px 50px;
+      }
+
+      .envelope {
+        width: 140px;
+        height: 100px;
+      }
+
+      .envelope::before {
+        border-left: 70px solid transparent;
+        border-right: 70px solid transparent;
+        border-bottom: 45px solid #f3c6be;
+      }
+
+      .letter {
+        top: 45px;
+        max-height: 150px;
+        font-size: 0.95em;
+        padding: 20px 15px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 네비게이션 -->
   <nav>
-    <a href="index.html" class="title-link">🎉 엄마 생일 홈페이지</a>
+    <a href="index.html" class="title-link">🎉 어머니 생신 축하 페이지</a>
     <div class="nav-links">
       <a href="moodTest.html">기분 테스트 😊</a>
       <a href="chatbot.html">AI 감정 챗봇 💬</a>
+      <a href="#" id="letterLink">편지 💌</a>
     </div>
   </nav>
 
-  <!-- 메인 콘텐츠 -->
   <div class="container">
-    <h2>🎂 생신 축하드립니다!</h2>
-    <div id="message">항상 건강하시고 행복한 일들만 가득하시길 기원합니다.</div>
+    <h2>어머니, 생신 축하드립니다!</h2>
+    <p class="intro-text">
+      오늘도 건강하고 행복한 하루 보내시길 바래요.<br />
+      사랑하는 마음을 담아 준비한 작은 선물들을 즐겨주세요.
+    </p>
 
-    <!-- YouTube 음악 버튼 -->
-    <div class="music-section">
-      <p>🎵 축하 음악을 감상해 보세요</p>
-      <button onclick="seekTo(0)">인트로부터 🎶</button>
-      <button onclick="seekTo(30)">30초부터 🎵</button>
-      <button onclick="seekTo(60)">1분부터 🎼</button>
-    </div>
-
-    <!-- 추억 사진 -->
-    <div class="photo-gallery">
-      <img src="https://placehold.co/150x150?text=추억1" alt="추억1" />
-      <img src="https://placehold.co/150x150?text=추억2" alt="추억2" />
-      <img src="https://placehold.co/150x150?text=추억3" alt="추억3" />
+    <div class="letter-wrapper" id="letterWrapper" style="display:none;">
+      <div class="envelope" id="envelope">
+        <div class="letter" id="letterContent">
+          어머니께,<br><br>
+          언제나 가족을 위해 애써주셔서 정말 감사합니다.<br>
+          건강하시고 행복한 나날들만 가득하시길 기도합니다.<br><br>
+          사랑하는 아들/딸 드림.
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 숨겨진 YouTube 플레이어 -->
-  <div id="player" style="display: none;"></div>
+  <footer>© 2025 생신 축하 프로젝트 | 사랑하는 아들/딸이 💖</footer>
 
-  <footer>
-    © 2025 생신 축하 프로젝트 | 사랑하는 건희 드림
-  </footer>
-
-  <!-- YouTube IFrame API 로드 -->
-  <script src="https://www.youtube.com/iframe_api"></script>
-
-  <!-- YouTube 플레이어 제어 스크립트 -->
   <script>
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'hoLxuyV9qz8', // 원하는 영상ID 넣으세요
-        playerVars: {
-          'autoplay': 0,
-          'controls': 0,
-          'mute': 0
-        },
-        events: {
-          'onReady': function(event) {
-            // 준비 완료 시
-          }
-        }
-      });
-    }
+    const letterLink = document.getElementById('letterLink');
+    const letterWrapper = document.getElementById('letterWrapper');
+    const envelope = document.getElementById('envelope');
 
-    function seekTo(seconds) {
-      if (player && player.seekTo) {
-        player.seekTo(seconds, true);
-        player.playVideo();
+    letterLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (letterWrapper.style.display === 'none') {
+        letterWrapper.style.display = 'flex';
+        // 스크롤 위치 조정
+        letterWrapper.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        letterWrapper.style.display = 'none';
+        envelope.classList.remove('open');
       }
-    }
+    });
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.toggle('open');
+    });
   </script>
 </body>
 </html>
