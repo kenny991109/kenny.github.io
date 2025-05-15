@@ -5,61 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>생일 축하 로그인</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(to bottom, #ffe6f0, #fff);
       height: 100vh;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(135deg, #ffcee3 0%, #ffe6f0 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       color: #444;
     }
+
     .login-container {
       background: white;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
-      width: 320px;
+      padding: 50px 40px;
+      width: 360px;
+      border-radius: 25px;
+      box-shadow: 0 12px 35px rgba(255, 105, 180, 0.25);
       text-align: center;
+      transition: box-shadow 0.3s ease-in-out;
     }
+
+    .login-container:hover {
+      box-shadow: 0 20px 45px rgba(255, 105, 180, 0.35);
+    }
+
     h2 {
-      margin-bottom: 30px;
-      color: #ff3385;
+      margin: 0 0 35px;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #ff4d94;
+      user-select: none;
+      letter-spacing: 1.5px;
     }
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 20px;
-      border: 2px solid #ff66b2;
-      border-radius: 10px;
-      font-size: 1em;
-      transition: border-color 0.3s;
-    }
-    input[type="text"]:focus, input[type="password"]:focus {
-      border-color: #ff3385;
-      outline: none;
-    }
-    button {
-      background-color: #ff3385;
-      color: white;
-      border: none;
-      padding: 12px 0;
-      width: 100%;
-      font-size: 1.1em;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #ff66b2;
-    }
+
     .error-message {
       color: #d93025;
+      height: 22px;
       margin-bottom: 15px;
-      height: 18px;
-      font-size: 0.9em;
+      font-size: 0.95em;
+      font-weight: 600;
+      user-select: none;
+      min-height: 22px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 25px;
+      border: 2px solid #ff99bf;
+      border-radius: 12px;
+      font-size: 1.1em;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline-offset: 2px;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #ff4d94;
+      box-shadow: 0 0 6px 2px #ff99bf88;
+    }
+
+    button {
+      width: 100%;
+      background-color: #ff4d94;
+      color: white;
+      font-weight: 700;
+      font-size: 1.15em;
+      border: none;
+      padding: 15px 0;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      user-select: none;
+      box-shadow: 0 6px 15px rgba(255, 77, 148, 0.4);
+    }
+
+    button:hover {
+      background-color: #ff3385;
+      box-shadow: 0 8px 20px rgba(255, 51, 133, 0.6);
+    }
+
+    button:active {
+      transform: translateY(1.5px);
+      box-shadow: 0 4px 12px rgba(255, 51, 133, 0.6);
+    }
+
+    @media (max-width: 400px) {
+      .login-container {
+        width: 90vw;
+        padding: 40px 25px;
+      }
     }
   </style>
 </head>
@@ -67,9 +110,9 @@
   <div class="login-container">
     <h2>생일 축하 로그인</h2>
     <div class="error-message" id="errorMsg"></div>
-    <form id="loginForm" onsubmit="return handleLogin(event)">
-      <input type="text" id="userid" placeholder="아이디 입력" autocomplete="off" />
-      <input type="password" id="password" placeholder="비밀번호 입력" autocomplete="off" />
+    <form id="loginForm" onsubmit="return handleLogin(event)" autocomplete="off">
+      <input type="text" id="userid" placeholder="아이디 입력" required />
+      <input type="password" id="password" placeholder="비밀번호 입력" required />
       <button type="submit">로그인</button>
     </form>
   </div>
@@ -81,7 +124,6 @@
       const pw = document.getElementById('password').value.trim();
       const errorMsg = document.getElementById('errorMsg');
 
-      // 로그인 정보 확인
       if (id === '보람' && pw === '19710518') {
         window.location.href = 'mother.html';
       } else if (id === '수현이' && pw === '19990518!') {
