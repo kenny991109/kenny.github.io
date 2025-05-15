@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>수현이 생일 축하해 💖</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      color: #444;
+      overflow-x: hidden;
+      height: 100%;
+    }
+
+    nav {
+      background-color: #ff66b2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a.title-link {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      padding: 5px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: #fffafa;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #message {
+      font-size: 1.2em;
+      margin: 20px 0 30px;
+      animation: typing 4s steps(40, end);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid pink;
+    }
+
+    .music-section {
+      margin: 30px 0;
+    }
+
+    .music-section button {
+      background-color: #ffe0ec;
+      color: #ff3385;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    .music-section button:hover {
+      background-color: #ffb3d9;
+    }
+
+    .photo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .photo-gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: fixed;
+      top: -30px;
+      font-size: 30px;
+      animation: fallHeart linear infinite;
+      pointer-events: auto;
+      z-index: 20;
+      user-select: none;
+      animation-duration: 5s;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes fallHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .heart.clicked {
+      animation: explode 0.5s forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .container {
+        width: 100%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 네비게이션 -->
+  <nav>
+    <a href="index.html" class="title-link">🎉 수현이의 생일 홈</a>
+    <div class="nav-links">
+      <a href="moodTest.html">기분 테스트 😊</a>
+      <a href="chatbot.html">AI 감정 챗봇 💬</a>
+    </div>
+  </nav>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="container">
+    <h2>🎂 생일 축하해, 수현아!</h2>
+    <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
+
+    <!-- YouTube 음악 버튼 -->
+    <div class="music-section">
+      <p>🎵 생일 노래를 들어봐!</p>
+      <button onclick="seekTo(0)">인트로부터 🎶</button>
+      <button onclick="seekTo(30)">30초부터 💫</button>
+      <button onclick="seekTo(60)">1분부터 🌟</button>
+    </div>
+
+    <!-- 추억 사진 -->
+    <div class="photo-gallery">
+      <img src="https://placekitten.com/200/200" alt="기억1" />
+      <img src="https://placekitten.com/201/200" alt="기억2" />
+      <img src="https://placekitten.com/202/200" alt="기억3" />
+    </div>
+  </div>
+
+  <!-- 숨겨진 YouTube 플레이어 -->
+  <div id="player" style="display: none;"></div>
+
+  <footer>
+    © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
+  </footer>
+
+  <!-- 하트 떨어지는 효과 -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+      heart.addEventListener("click", () => {
+        heart.classList.add("clicked");
+        setTimeout(() => {
+          heart.remove();
+        }, 500);
+      });
+
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 1000);
+  </script>
+
+  <!-- YouTube IFrame API 로드 -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- YouTube 플레이어 제어 스크립트 -->
+  <script>
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'hoLxuyV9qz8', // 원하는 유튜브 영상 ID로 변경 가능
+        playerVars: {
+          'autoplay': 0,
+          'controls': 0,
+          'mute': 0
+        },
+        events: {
+          'onReady': function(event) {
+            // 준비 시
+          }
+        }
+      });
+    }
+
+    function seekTo(seconds) {
+      if (player && player.seekTo) {
+        player.seekTo(seconds, true);
+        player.playVideo();
+      }
+    }
+  </script>
+</body>
+</html>
