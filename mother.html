@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>보람 어머니 생신 축하드립니다 🎉</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
+      color: #333;
+      overflow-x: hidden;
+      height: 100%;
+    }
+
+    nav {
+      background-color: #4a6fa5; /* 차분한 파랑 계열 */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a.title-link {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      padding: 5px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: #fafafa;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(74, 111, 165, 0.15);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #2c3e50;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #message {
+      font-size: 1.2em;
+      margin: 20px 0 30px;
+      color: #4a6fa5;
+      white-space: normal;
+      animation: fadeIn 2s ease-in-out;
+      border: none;
+    }
+
+    .music-section {
+      margin: 30px 0;
+    }
+
+    .music-section p {
+      font-weight: bold;
+      color: #4a6fa5;
+      margin-bottom: 10px;
+    }
+
+    .music-section button {
+      background-color: #d7e1f0;
+      color: #3b5998;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      margin: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .music-section button:hover {
+      background-color: #a9bddb;
+    }
+
+    .photo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .photo-gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+      filter: grayscale(10%);
+      transition: filter 0.3s;
+    }
+
+    .photo-gallery img:hover {
+      filter: none;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #999;
+      font-size: 0.9em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .container {
+        width: 100%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 네비게이션 -->
+  <nav>
+    <a href="index.html" class="title-link">🎉 보람 어머니 생신 홈</a>
+    <div class="nav-links">
+      <a href="moodTest.html">기분 테스트 😊</a>
+      <a href="chatbot.html">AI 감정 챗봇 💬</a>
+    </div>
+  </nav>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="container">
+    <h2>🎂 생신 축하드립니다, 보람 어머니!</h2>
+    <div id="message">항상 건강하시고 행복한 일들만 가득하시길 기원합니다.</div>
+
+    <!-- YouTube 음악 버튼 -->
+    <div class="music-section">
+      <p>🎵 축하 음악을 감상해 보세요</p>
+      <button onclick="seekTo(0)">인트로부터 🎶</button>
+      <button onclick="seekTo(30)">30초부터 🎵</button>
+      <button onclick="seekTo(60)">1분부터 🎼</button>
+    </div>
+
+    <!-- 추억 사진 -->
+    <div class="photo-gallery">
+      <img src="https://placehold.co/150x150?text=추억1" alt="추억1" />
+      <img src="https://placehold.co/150x150?text=추억2" alt="추억2" />
+      <img src="https://placehold.co/150x150?text=추억3" alt="추억3" />
+    </div>
+  </div>
+
+  <!-- 숨겨진 YouTube 플레이어 -->
+  <div id="player" style="display: none;"></div>
+
+  <footer>
+    © 2025 생신 축하 프로젝트 | 사랑하는 OO 드림
+  </footer>
+
+  <!-- YouTube IFrame API 로드 -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- YouTube 플레이어 제어 스크립트 -->
+  <script>
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'hoLxuyV9qz8', // 원하는 영상ID 넣으세요
+        playerVars: {
+          'autoplay': 0,
+          'controls': 0,
+          'mute': 0
+        },
+        events: {
+          'onReady': function(event) {
+            // 준비 완료 시
+          }
+        }
+      });
+    }
+
+    function seekTo(seconds) {
+      if (player && player.seekTo) {
+        player.seekTo(seconds, true);
+        player.playVideo();
+      }
+    }
+  </script>
+</body>
+</html>
