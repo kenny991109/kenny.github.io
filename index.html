@@ -2,78 +2,94 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>특별한 날 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>생일 축하 로그인</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+      color: #444;
+    }
+    .login-container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+      width: 320px;
       text-align: center;
     }
-
-    h1 {
-      font-size: 2.5em;
-      color: #ff4d88;
+    h2 {
+      margin-bottom: 30px;
+      color: #ff3385;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
       margin-bottom: 20px;
-      animation: fadeIn 1.5s ease-in-out;
+      border: 2px solid #ff66b2;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: border-color 0.3s;
     }
-
-    p {
-      font-size: 1.2em;
-      color: #555;
-      margin-bottom: 40px;
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #ff3385;
+      outline: none;
     }
-
-    .btn-container {
-      display: flex;
-      gap: 30px;
-    }
-
-    .select-btn {
-      background-color: #ff99c8;
+    button {
+      background-color: #ff3385;
       color: white;
       border: none;
-      padding: 15px 30px;
-      border-radius: 12px;
+      padding: 12px 0;
+      width: 100%;
       font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: background-color 0.3s;
     }
-
-    .select-btn:hover {
-      background-color: #ff66a3;
-      transform: scale(1.05);
+    button:hover {
+      background-color: #ff66b2;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.85em;
-      color: #aaa;
+    .error-message {
+      color: #d93025;
+      margin-bottom: 15px;
+      height: 18px;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <h1>오늘은 아주 특별한 날이에요 🎂</h1>
-  <p>누구를 위한 페이지인가요?</p>
-  <div class="btn-container">
-    <button class="select-btn" onclick="location.href='mother.html'">👩 어머니를 위한 페이지</button>
-    <button class="select-btn" onclick="location.href='girlfriend.html'">💖 수현이를 위한 페이지</button>
+  <div class="login-container">
+    <h2>생일 축하 로그인</h2>
+    <div class="error-message" id="errorMsg"></div>
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+      <input type="text" id="userid" placeholder="아이디 입력" autocomplete="off" />
+      <input type="password" id="password" placeholder="비밀번호 입력" autocomplete="off" />
+      <button type="submit">로그인</button>
+    </form>
   </div>
-  <footer>
-    Made with love by OO | 2025.05.18
-  </footer>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const id = document.getElementById('userid').value.trim();
+      const pw = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+
+      // 로그인 정보 확인
+      if (id === '보람' && pw === '19710518') {
+        window.location.href = 'mother.html';
+      } else if (id === '수현이' && pw === '19990518!') {
+        window.location.href = 'girlfriend.html';
+      } else {
+        errorMsg.textContent = '아이디 또는 비밀번호가 틀렸어요. 다시 시도해 주세요.';
+      }
+    }
+  </script>
 </body>
 </html>
