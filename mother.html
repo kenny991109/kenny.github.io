@@ -99,6 +99,8 @@
       display: flex;
       justify-content: center;
       user-select: none;
+      position: relative;
+      height: 150px;
     }
 
     .envelope {
@@ -112,6 +114,7 @@
       box-shadow: 0 6px 12px rgba(201, 169, 160, 0.4);
       transition: transform 0.35s ease;
       overflow: visible;
+      z-index: 10;
     }
 
     /* 봉투 윗부분 삼각형 모양 */
@@ -127,11 +130,14 @@
       border-bottom: 55px solid #f3c6be;
       border-radius: 10px 10px 0 0;
       transition: border-bottom-color 0.35s ease;
+      z-index: 12;
     }
 
     /* 봉투 열렸을 때 모양 */
     .envelope.open {
-      transform: translateY(-50px) rotateX(15deg);
+      transform: translateY(-70px) rotateX(20deg);
+      box-shadow: 0 15px 30px rgba(201, 169, 160, 0.7);
+      z-index: 100;
     }
 
     .envelope.open::before {
@@ -139,33 +145,132 @@
     }
 
     /* 편지지 스타일 */
-    .letter {
+    .letter-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 70vw;
+      max-width: 600px;
+      height: 60vh;
+      background: #fff8f5;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      padding: 30px 40px;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      overflow-y: auto;
+      font-family: 'Pretendard', sans-serif;
+      color: #5a3e4b;
+      z-index: 1100;
+      user-select: text;
+    }
+
+    .letter-content.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .letter-content h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .letter-content p {
+      line-height: 1.6;
+      font-size: 1.1em;
+      white-space: pre-line;
+    }
+
+    .close-letter {
       position: absolute;
-      top: 55px;
-      left: 10px;
-      right: 10px;
-사랑하는 아들이 💖</footer>
+      top: 15px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: #b4687e;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#" class="title-link">엄마 생일 축하드림다! 💐</a>
+    <div class="nav-links">
+      <a href="#">챗봇</a>
+      <a href="#">감정 테스트</a>
+      <a href="#" id="letterLink">편지</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>사랑하는 엄마께</h2>
+    <p class="intro-text">엄마, 생신 진심으로 축하드려요! 항상 건강하시고 행복하세요.</p>
+
+    <!-- 편지 봉투 및 편지 -->
+    <div class="letter-wrapper" id="letterWrapper" style="display:none;">
+      <div class="envelope" id="envelope" title="편지봉투 클릭해서 열기"></div>
+    </div>
+
+    <div class="letter-content" id="letterContent" aria-hidden="true">
+      <button class="close-letter" id="closeLetterBtn" aria-label="편지 닫기">✕</button>
+      <h3>사랑하는 어머니께</h3>
+      <p>
+        엄마, 생신 정말 축하드려요! 항상 저를 위해 애써주시는 모습에 감사하고 사랑합니다.
+        
+        앞으로도 건강하시고 행복한 일들만 가득하시길 기도할게요. 오늘 하루, 편안하고 즐겁게 보내셨으면 좋겠습니다.
+        
+        사랑하는 OO 드림 💖
+      </p>
+    </div>
+  </div>
 
   <script>
     const letterLink = document.getElementById('letterLink');
     const letterWrapper = document.getElementById('letterWrapper');
     const envelope = document.getElementById('envelope');
+    const letterContent = document.getElementById('letterContent');
+    const closeLetterBtn = document.getElementById('closeLetterBtn');
 
+    // 편지 메뉴 클릭하면 편지봉투 보여주기/숨기기 토글
     letterLink.addEventListener('click', (e) => {
       e.preventDefault();
-      if (letterWrapper.style.display === 'none') {
+      if (letterWrapper.style.display === 'none' || letterWrapper.style.display === '') {
         letterWrapper.style.display = 'flex';
-        // 스크롤 위치 조정
         letterWrapper.scrollIntoView({ behavior: 'smooth' });
       } else {
         letterWrapper.style.display = 'none';
+        closeLetter(); // 편지도 닫기
         envelope.classList.remove('open');
       }
     });
 
+    // 편지봉투 클릭하면 편지 열기 / 닫기 토글
     envelope.addEventListener('click', () => {
-      envelope.classList.toggle('open');
+      if (envelope.classList.contains('open')) {
+        closeLetter();
+      } else {
+        openLetter();
+      }
     });
+
+    closeLetterBtn.addEventListener('click', () => {
+      closeLetter();
+    });
+
+    function openLetter() {
+      envelope.classList.add('open');
+      letterContent.classList.add('show');
+      letterContent.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeLetter() {
+      envelope.classList.remove('open');
+      letterContent.classList.remove('show');
+      letterContent.setAttribute('aria-hidden', 'true');
+    }
   </script>
 </body>
 </html>
