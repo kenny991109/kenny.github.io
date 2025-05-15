@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>어머니 생신 축하합니다 💐</title>
+  <title>엄마 생일 축하드림다! 💐</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
 
@@ -144,92 +144,7 @@
       top: 55px;
       left: 10px;
       right: 10px;
-      bottom: 10px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      padding: 25px 20px;
-      opacity: 0;
-      pointer-events: none;
-      user-select: text;
-      transition: opacity 0.6s ease 0.3s;
-      font-size: 1.05em;
-      line-height: 1.5;
-      color: #444;
-      overflow-y: auto;
-      max-height: 200px;
-    }
-
-    /* 편지 나타날 때 */
-    .envelope.open .letter {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #777;
-      user-select: none;
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 30px 20px;
-        margin: 30px 15px 50px;
-      }
-
-      .envelope {
-        width: 140px;
-        height: 100px;
-      }
-
-      .envelope::before {
-        border-left: 70px solid transparent;
-        border-right: 70px solid transparent;
-        border-bottom: 45px solid #f3c6be;
-      }
-
-      .letter {
-        top: 45px;
-        max-height: 150px;
-        font-size: 0.95em;
-        padding: 20px 15px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <a href="index.html" class="title-link">🎉 어머니 생신 축하 페이지</a>
-    <div class="nav-links">
-      <a href="moodTest.html">기분 테스트 😊</a>
-      <a href="chatbot.html">AI 감정 챗봇 💬</a>
-      <a href="#" id="letterLink">편지 💌</a>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h2>어머니, 생신 축하드립니다!</h2>
-    <p class="intro-text">
-      오늘도 건강하고 행복한 하루 보내시길 바래요.<br />
-      사랑하는 마음을 담아 준비한 작은 선물들을 즐겨주세요.
-    </p>
-
-    <div class="letter-wrapper" id="letterWrapper" style="display:none;">
-      <div class="envelope" id="envelope">
-        <div class="letter" id="letterContent">
-          어머니께,<br><br>
-          언제나 가족을 위해 애써주셔서 정말 감사합니다.<br>
-          건강하시고 행복한 나날들만 가득하시길 기도합니다.<br><br>
-          사랑하는 아들/딸 드림.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>© 2025 생신 축하 프로젝트 | 사랑하는 아들/딸이 💖</footer>
+ 들이 💖</footer>
 
   <script>
     const letterLink = document.getElementById('letterLink');
