@@ -17,6 +17,7 @@
       background: linear-gradient(to bottom, #f0f4f8, #ffffff);
       color: #333;
       min-height: 100vh;
+      user-select: none;
     }
 
     nav {
@@ -50,6 +51,7 @@
       font-weight: 600;
       padding: 5px;
       position: relative;
+      cursor: pointer;
     }
 
     .nav-links a::after {
@@ -76,6 +78,7 @@
       box-shadow: 0 8px 25px rgba(74, 111, 165, 0.15);
       text-align: center;
       color: #2c3e50;
+      user-select: text;
     }
 
     h2 {
@@ -117,7 +120,6 @@
       z-index: 10;
     }
 
-    /* 봉투 윗부분 삼각형 모양 */
     .envelope::before {
       content: "";
       position: absolute;
@@ -133,7 +135,6 @@
       z-index: 12;
     }
 
-    /* 봉투 열렸을 때 모양 */
     .envelope.open {
       transform: translateY(-70px) rotateX(20deg);
       box-shadow: 0 15px 30px rgba(201, 169, 160, 0.7);
@@ -144,7 +145,6 @@
       border-bottom-color: #f9e5e0;
     }
 
-    /* 편지지 스타일 */
     .letter-content {
       position: fixed;
       top: 50%;
@@ -193,22 +193,88 @@
       color: #b4687e;
       cursor: pointer;
     }
+
+    /* 선물 뽑기 영역 */
+    .gift-picker {
+      margin-top: 60px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .gift-picker h3 {
+      color: #4a6fa5;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .boxes {
+      position: relative;
+      width: 360px;
+      height: 150px;
+      margin: 0 auto;
+    }
+
+    .box {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      background: linear-gradient(145deg, #f9e5e0, #f1c6be);
+      border: 2px solid #c9a9a0;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(201, 169, 160, 0.5);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      color: #7a4a3a;
+      font-size: 1.3em;
+      user-select: none;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+
+    .box:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(201, 169, 160, 0.7);
+    }
+
+    /* 초기 위치 */
+    .box1 { left: 0; top: 20px; }
+    .box2 { left: 125px; top: 20px; }
+    .box3 { left: 250px; top: 20px; }
+
+    /* 선택된 박스 강조 */
+    .box.selected {
+      border-color: #f57c7c;
+      box-shadow: 0 0 20px 5px #f57c7c;
+      transform: scale(1.2);
+      z-index: 20;
+    }
+
+    /* 선물 결과 텍스트 */
+    .gift-result {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #5a3e4b;
+      min-height: 48px;
+      user-select: text;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
   <nav>
     <a href="#" class="title-link">엄마 생일 축하드림다! 💐</a>
     <div class="nav-links">
-      <a href="#">챗봇</a>
-      <a href="#">감정 테스트</a>
       <a href="#" id="letterLink">편지</a>
+      <a href="#" id="giftLink">선물 뽑기</a>
     </div>
   </nav>
 
   <div class="container">
     <h2>사랑하는 엄마께</h2>
-    <p class="intro-text">엄마, 생신 진심으로 축하드려요! 
-      항상 건강하시고 행복하세요.</p>
+    <p class="intro-text">엄마, 생신 진심으로 축하드려요! 항상 건강하시고 행복하세요.</p>
 
     <!-- 편지 봉투 및 편지 -->
     <div class="letter-wrapper" id="letterWrapper" style="display:none;">
@@ -217,63 +283,124 @@
 
     <div class="letter-content" id="letterContent" aria-hidden="true">
       <button class="close-letter" id="closeLetterBtn" aria-label="편지 닫기">✕</button>
-      <h3>사랑하는 엄마에게</h3>
+      <h3>사랑하는 어머니께</h3>
       <p>
-        엄마, 생신 정말 축하드려요! 
-        항상 저를 위해 애써주시는 모습에 감사하고 사랑합니다.
-        
-        앞으로도 건강하시고 행복한 일들만 가득하시길 기도할게요. 
-        오늘 하루, 편안하고 즐겁게 보내셨으면 좋겠습니다.
-        
-        사랑하는 건희 드림 💖
+        엄마, 생신 정말 축하드려요! 항상 저를 위해 애써주시는 모습에 감사하고 사랑합니다.
+
+        앞으로도 건강하시고 행복한 일들만 가득하시길 기도할게요. 오늘 하루, 편안하고 즐겁게 보내셨으면 좋겠습니다.
+
+        사랑하는 OO 드림 💖
       </p>
+    </div>
+
+    <!-- 선물 뽑기 영역 -->
+    <div class="gift-picker" id="giftPicker" style="display:none;">
+      <h3>🎁 선물 뽑기 🎁</h3>
+      <div class="boxes">
+        <div class="box box1" data-index="0" title="선물 상자 1">상자 1</div>
+        <div class="box box2" data-index="1" title="선물 상자 2">상자 2</div>
+        <div class="box box3" data-index="2" title="선물 상자 3">상자 3</div>
+      </div>
+      <div class="gift-result" id="giftResult"></div>
     </div>
   </div>
 
-  <script>
-    const letterLink = document.getElementById('letterLink');
-    const letterWrapper = document.getElementById('letterWrapper');
-    const envelope = document.getElementById('envelope');
-    const letterContent = document.getElementById('letterContent');
-    const closeLetterBtn = document.getElementById('closeLetterBtn');
+<script>
+  // 네비게이션 링크 기능 (편지 / 선물 뽑기 전환)
+  const letterLink = document.getElementById('letterLink');
+  const giftLink = document.getElementById('giftLink');
+  const letterWrapper = document.getElementById('letterWrapper');
+  const giftPicker = document.getElementById('giftPicker');
 
-    // 편지 메뉴 클릭하면 편지봉투 보여주기/숨기기 토글
-    letterLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (letterWrapper.style.display === 'none' || letterWrapper.style.display === '') {
-        letterWrapper.style.display = 'flex';
-        letterWrapper.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        letterWrapper.style.display = 'none';
-        closeLetter(); // 편지도 닫기
-        envelope.classList.remove('open');
-      }
-    });
+  letterLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    letterWrapper.style.display = 'flex';
+    giftPicker.style.display = 'none';
+  });
 
-    // 편지봉투 클릭하면 편지 열기 / 닫기 토글
-    envelope.addEventListener('click', () => {
-      if (envelope.classList.contains('open')) {
-        closeLetter();
-      } else {
-        openLetter();
-      }
-    });
+  giftLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    giftPicker.style.display = 'block';
+    letterWrapper.style.display = 'none';
+  });
 
-    closeLetterBtn.addEventListener('click', () => {
-      closeLetter();
-    });
+  // 편지 열고 닫기 기능
+  const envelope = document.getElementById('envelope');
+  const letterContent = document.getElementById('letterContent');
+  const closeLetterBtn = document.getElementById('closeLetterBtn');
 
-    function openLetter() {
-      envelope.classList.add('open');
+  envelope.addEventListener('click', () => {
+    envelope.classList.toggle('open');
+    if (envelope.classList.contains('open')) {
       letterContent.classList.add('show');
       letterContent.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeLetter() {
-      envelope.classList.remove('open');
+    } else {
       letterContent.classList.remove('show');
       letterContent.setAttribute('aria-hidden', 'true');
     }
-  </script>
+  });
+
+  closeLetterBtn.addEventListener('click', () => {
+    envelope.classList.remove('open');
+    letterContent.classList.remove('show');
+    letterContent.setAttribute('aria-hidden', 'true');
+  });
+
+  // 선물 뽑기 기능
+  const boxes = document.querySelectorAll('.box');
+  const giftResult = document.getElementById('giftResult');
+
+  const gifts = [
+    "예쁜 목걸이 💎",
+    "따뜻한 담요 🧣",
+    "맛있는 케이크 🎂"
+  ];
+
+  let animationInterval;
+  let positions = [
+    [{left: '0px', top: '20px'}, {left: '125px', top: '20px'}, {left: '250px', top: '20px'}],
+    [{left: '125px', top: '20px'}, {left: '250px', top: '20px'}, {left: '0px', top: '20px'}],
+    [{left: '250px', top: '20px'}, {left: '0px', top: '20px'}, {left: '125px', top: '20px'}]
+  ];
+  let currentPosIndex = 0;
+  let isPicking = false;
+
+  function animateBoxes() {
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].style.left = positions[currentPosIndex][i].left;
+      boxes[i].style.top = positions[currentPosIndex][i].top;
+    }
+    currentPosIndex = (currentPosIndex + 1) % positions.length;
+  }
+
+  function startAnimation() {
+    animationInterval = setInterval(animateBoxes, 600);
+  }
+
+  function stopAnimation() {
+    clearInterval(animationInterval);
+  }
+
+  boxes.forEach(box => {
+    box.addEventListener('click', () => {
+      if (isPicking) return;  // 이미 뽑는 중이면 무시
+      isPicking = true;
+      stopAnimation();
+
+      boxes.forEach(b => b.classList.remove('selected'));
+      box.classList.add('selected');
+
+      const idx = parseInt(box.getAttribute('data-index'));
+      giftResult.textContent = `축하해요! 당신의 선물은 "${gifts[idx]}" 입니다.`;
+    });
+  });
+
+  // 페이지 로드 시 선물 뽑기 애니메이션 시작 (선물 탭에서 시작 안 되니 따로 호출 필요)
+  startAnimation();
+
+  // 초반에 편지 탭이 열려 있도록 설정 (선물 탭은 숨김)
+  letterWrapper.style.display = 'flex';
+  giftPicker.style.display = 'none';
+</script>
 </body>
 </html>
