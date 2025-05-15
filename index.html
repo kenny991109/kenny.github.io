@@ -3,172 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎂 생일 축하 페이지</title>
+  <title>특별한 날 🎉</title>
   <style>
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(to bottom, #ffe6f0, #fff);
-      color: #444;
-      overflow-x: hidden;
-    }
-
-    nav {
-      background-color: #ff66b2;
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav a.title-link {
-      color: white;
-      text-decoration: none;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .nav-links {
+      background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
+      height: 100vh;
       display: flex;
-      gap: 25px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      padding: 5px;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 0;
-      height: 2px;
-      background-color: white;
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 40px;
-      background-color: #fffafa;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       text-align: center;
     }
 
-    /* 로그인 스타일 개선 */
-    #loginContainer {
-      display: block;
-      background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
-    }
-
-    #loginContainer h2 {
+    h1 {
       font-size: 2.5em;
-      color: #ff3385;
+      color: #ff4d88;
       margin-bottom: 20px;
-    }
-
-    #loginContainer input {
-      padding: 12px 15px;
-      border: 2px solid #ff99cc;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      width: 80%;
-      max-width: 300px;
-      font-size: 1em;
-    }
-
-    #loginContainer button {
-      background-color: #ff66b2;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    #loginContainer button:hover {
-      background-color: #ff3385;
-    }
-
-    #error {
-      color: red;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    #mainContent { display: none; }
-
-    h2 {
-      font-size: 2em;
-      margin-bottom: 10px;
       animation: fadeIn 1.5s ease-in-out;
     }
 
-    #message {
+    p {
       font-size: 1.2em;
-      margin: 20px 0 30px;
-      animation: typing 4s steps(40, end);
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid pink;
+      color: #555;
+      margin-bottom: 40px;
     }
 
-    .music-section button {
-      background-color: #ffe0ec;
-      color: #ff3385;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 15px;
-      margin: 5px;
-      cursor: pointer;
-    }
-
-    .photo-gallery {
+    .btn-container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 30px;
     }
 
-    .photo-gallery img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    .select-btn {
+      background-color: #ff99c8;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
-    footer {
-      margin-top: 50px;
-      text-align: center;
-      color: #aaa;
-      font-size: 0.9em;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+    .select-btn:hover {
+      background-color: #ff66a3;
+      transform: scale(1.05);
     }
 
     @keyframes fadeIn {
@@ -176,162 +57,23 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .heart {
-      position: fixed;
-      top: -30px;
-      font-size: 30px;
-      animation: fallHeart linear infinite;
-      pointer-events: auto;
-      z-index: 20;
-      user-select: none;
-      animation-duration: 5s;
-      animation-timing-function: ease-in-out;
-    }
-
-    @keyframes fallHeart {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
-    }
-
-    .heart.clicked {
-      animation: explode 0.5s forwards;
-    }
-
-    @keyframes explode {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(3); opacity: 0; }
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 20px;
-      }
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85em;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-
-  <!-- 네비게이션 -->
-  <nav id="nav">
-    <a href="#" class="title-link">🎉 생일 홈</a>
-    <div class="nav-links">
-      <a href="#">기분 테스트 😊</a>
-      <a href="#">AI 감정 챗봇 💬</a>
-    </div>
-  </nav>
-
-  <!-- 로그인 창 -->
-  <div class="container" id="loginContainer">
-    <h2>🎈 생일 축하 페이지 로그인</h2>
-    <input type="text" id="username" placeholder="아이디" /><br/>
-    <input type="password" id="password" placeholder="비밀번호" /><br/>
-    <button onclick="login()">로그인</button>
-    <div id="error"></div>
+  <h1>오늘은 아주 특별한 날이에요 🎂</h1>
+  <p>누구를 위한 페이지인가요?</p>
+  <div class="btn-container">
+    <button class="select-btn" onclick="location.href='mother.html'">👩 어머니를 위한 페이지</button>
+    <button class="select-btn" onclick="location.href='girlfriend.html'">💖 수현이를 위한 페이지</button>
   </div>
-
-  <!-- 메인 콘텐츠 -->
-  <div class="container" id="mainContent">
-    <h2 id="mainHeading">🎂 생일/생신 축하합니다!</h2>
-    <div id="message">오늘 하루도 당신처럼 빛나길 바라요 ✨</div>
-
-    <div class="music-section">
-      <p>🎵 생일 노래를 들어봐!</p>
-      <button onclick="seekTo(0)">인트로부터 🎶</button>
-      <button onclick="seekTo(30)">30초부터 💫</button>
-      <button onclick="seekTo(60)">1분부터 🌟</button>
-    </div>
-
-    <div class="photo-gallery">
-      <img src="https://placekitten.com/200/200" />
-      <img src="https://placekitten.com/201/200" />
-      <img src="https://placekitten.com/202/200" />
-    </div>
-  </div>
-
-  <!-- 유튜브 플레이어 -->
-  <div id="player" style="display: none;"></div>
-
-  <!-- 하트 떨어지는 효과 (초기에는 안 실행됨) -->
-  <script>
-    let heartInterval;
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerText = "💖";
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-      heart.addEventListener("click", () => {
-        heart.classList.add("clicked");
-        setTimeout(() => heart.remove(), 500);
-      });
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }
-
-    function startHearts() {
-      if (!heartInterval) {
-        heartInterval = setInterval(createHeart, 1000);
-      }
-    }
-  </script>
-
-  <!-- 로그인 기능 -->
-  <script>
-    function login() {
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-      const loginContainer = document.getElementById("loginContainer");
-      const mainContent = document.getElementById("mainContent");
-      const nav = document.getElementById("nav");
-      const heading = document.getElementById("mainHeading");
-      const message = document.getElementById("message");
-      const error = document.getElementById("error");
-
-      if (username === "보람" && password === "19710518") {
-        heading.innerText = "🎂 생신 축하합니다, 어머니!";
-        message.innerText = "항상 감사하고 사랑합니다. 건강하시고 행복하세요 💐";
-      } else if (username === "수현이" && password === "19990518!") {
-        heading.innerText = "🎂 생일 축하해, 수현아!";
-        message.innerText = "오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨";
-        startHearts(); // 하트 시작!
-      } else {
-        error.innerText = "아이디나 비밀번호가 틀렸어요 🥲";
-        return;
-      }
-
-      loginContainer.style.display = "none";
-      mainContent.style.display = "block";
-      nav.style.display = "flex";
-      error.innerText = "";
-    }
-  </script>
-
-  <!-- 유튜브 API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'hoLxuyV9qz8',
-        playerVars: { 'autoplay': 0, 'controls': 0 },
-        events: {
-          'onReady': function(event) {}
-        }
-      });
-    }
-
-    function seekTo(seconds) {
-      if (player && player.seekTo) {
-        player.seekTo(seconds, true);
-        player.playVideo();
-      }
-    }
-  </script>
-
   <footer>
-    © 2025 생일 축하 프로젝트 💖
+    Made with love by OO | 2025.05.18
   </footer>
 </body>
 </html>
