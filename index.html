@@ -5,62 +5,215 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>생일 축하 페이지 🎉</title>
   <style>
-    /* [기존 스타일 생략 — 네 코드와 동일하게 유지됨] */
-    /* 필요한 부분만 수정했어 */
+    * { box-sizing: border-box; }
 
-    #login-container {
-      text-align: center;
-      margin-top: 100px;
+    body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      color: #444;
+      overflow-x: hidden;
     }
 
-    #login-container input {
-      padding: 8px;
-      margin: 5px;
-      font-size: 1em;
-    }
-
-    #login-container button {
-      padding: 8px 16px;
+    nav {
       background-color: #ff66b2;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
       color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    #login-container button:hover {
-      background-color: #ff3385;
+    nav a.title-link {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      padding: 5px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: #fffafa;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      text-align: center;
+    }
+
+    #loginContainer {
+      display: block;
     }
 
     #mainContent {
       display: none;
     }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #message {
+      font-size: 1.2em;
+      margin: 20px 0 30px;
+      animation: typing 4s steps(40, end);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid pink;
+    }
+
+    .music-section {
+      margin: 30px 0;
+    }
+
+    .music-section button {
+      background-color: #ffe0ec;
+      color: #ff3385;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    .music-section button:hover {
+      background-color: #ffb3d9;
+    }
+
+    .photo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .photo-gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: fixed;
+      top: -30px;
+      font-size: 30px;
+      animation: fallHeart linear infinite;
+      pointer-events: auto;
+      z-index: 20;
+      user-select: none;
+      animation-duration: 5s;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes fallHeart {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
+    }
+
+    .heart.clicked {
+      animation: explode 0.5s forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .container {
+        width: 100%;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- 로그인 폼 -->
-  <div id="login-container">
-    <h2>🎉 생일/생신 축하 페이지에 오신 걸 환영합니다!</h2>
-    <p>로그인해주세요!</p>
-    <input type="text" id="loginId" placeholder="아이디" />
-    <input type="password" id="loginPw" placeholder="비밀번호" />
-    <br/>
-    <button onclick="handleLogin()">입장하기</button>
-  </div>
 
   <!-- 네비게이션 -->
-  <nav id="mainNav" style="display: none;">
-    <a href="index.html" class="title-link">🎉 생일 홈</a>
+  <nav id="nav">
+    <a href="#" class="title-link">🎉 생일 홈</a>
     <div class="nav-links">
-      <a href="moodTest.html">기분 테스트 😊</a>
-      <a href="chatbot.html">AI 감정 챗봇 💬</a>
+      <a href="#">기분 테스트 😊</a>
+      <a href="#">AI 감정 챗봇 💬</a>
     </div>
   </nav>
+
+  <!-- 로그인 창 -->
+  <div class="container" id="loginContainer">
+    <h2>🎈 생일 축하 페이지 로그인</h2>
+    <input type="text" id="username" placeholder="아이디" /><br/><br/>
+    <input type="password" id="password" placeholder="비밀번호" /><br/><br/>
+    <button onclick="login()">로그인</button>
+    <p style="color: red;" id="error"></p>
+  </div>
 
   <!-- 메인 콘텐츠 -->
   <div class="container" id="mainContent">
     <h2 id="mainHeading">🎂 생일/생신 축하합니다!</h2>
-    <div id="message">오늘도 행복한 하루 보내세요 ✨</div>
+    <div id="message">오늘 하루도 당신처럼 빛나길 바라요 ✨</div>
 
     <div class="music-section">
       <p>🎵 생일 노래를 들어봐!</p>
@@ -69,16 +222,15 @@
       <button onclick="seekTo(60)">1분부터 🌟</button>
     </div>
 
-    <div class="photo-gallery">
+    <div class="photo-gallery" id="photoGallery">
       <img src="https://placekitten.com/200/200" alt="기억1" />
       <img src="https://placekitten.com/201/200" alt="기억2" />
       <img src="https://placekitten.com/202/200" alt="기억3" />
     </div>
   </div>
 
-  <footer style="margin-top: 50px; text-align: center; color: #aaa;">
-    © 2025 생일 축하 프로젝트 | 사랑하는 사람이 💖
-  </footer>
+  <!-- 유튜브 플레이어 -->
+  <div id="player" style="display: none;"></div>
 
   <!-- 하트 떨어지는 효과 -->
   <script>
@@ -88,18 +240,52 @@
       heart.innerText = "💖";
       heart.style.left = Math.random() * window.innerWidth + "px";
       heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
       heart.addEventListener("click", () => {
         heart.classList.add("clicked");
-        setTimeout(() => heart.remove(), 500);
+        setTimeout(() => { heart.remove(); }, 500);
       });
+
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+      setTimeout(() => { heart.remove(); }, 5000);
     }
+
     setInterval(createHeart, 1000);
   </script>
 
-  <!-- YouTube API -->
-  <div id="player" style="display: none;"></div>
+  <!-- 로그인 기능 -->
+  <script>
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const loginContainer = document.getElementById("loginContainer");
+      const mainContent = document.getElementById("mainContent");
+      const nav = document.getElementById("nav");
+      const message = document.getElementById("message");
+      const heading = document.getElementById("mainHeading");
+      const error = document.getElementById("error");
+
+      if (username === "보람" && password === "19710518") {
+        heading.innerText = "🎂 생신 축하합니다, 어머니!";
+        message.innerText = "항상 감사하고 사랑합니다. 건강하시고 행복하세요 💐";
+        loginContainer.style.display = "none";
+        mainContent.style.display = "block";
+        nav.style.display = "flex";
+        error.innerText = "";
+      } else if (username === "수현이" && password === "19990518!") {
+        heading.innerText = "🎂 생일 축하해, 수현아!";
+        message.innerText = "오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨";
+        loginContainer.style.display = "none";
+        mainContent.style.display = "block";
+        nav.style.display = "flex";
+        error.innerText = "";
+      } else {
+        error.innerText = "아이디나 비밀번호가 틀렸어요 🥲";
+      }
+    }
+  </script>
+
+  <!-- 유튜브 API -->
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     let player;
@@ -107,10 +293,14 @@
       player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: 'hoLxuyV9qz8',
-        playerVars: { 'autoplay': 0, 'controls': 0, 'mute': 0 }
+        videoId: 'hoLxuyV9qz8', // 원하는 유튜브 영상 ID
+        playerVars: { 'autoplay': 0, 'controls': 0, 'mute': 0 },
+        events: {
+          'onReady': function(event) {}
+        }
       });
     }
+
     function seekTo(seconds) {
       if (player && player.seekTo) {
         player.seekTo(seconds, true);
@@ -119,33 +309,8 @@
     }
   </script>
 
-  <!-- 로그인 처리 스크립트 -->
-  <script>
-    function handleLogin() {
-      const id = document.getElementById("loginId").value.trim();
-      const pw = document.getElementById("loginPw").value.trim();
-      const loginContainer = document.getElementById("login-container");
-      const mainContent = document.getElementById("mainContent");
-      const nav = document.getElementById("mainNav");
-      const heading = document.getElementById("mainHeading");
-      const message = document.getElementById("message");
-
-      if (id === "수현이" && pw === "19990518!") {
-        loginContainer.style.display = "none";
-        nav.style.display = "flex";
-        mainContent.style.display = "block";
-        heading.innerText = "🎂 생일 축하해, 수현아!";
-        message.innerText = "오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨";
-      } else if (id === "보람" && pw === "19710518") {
-        loginContainer.style.display = "none";
-        nav.style.display = "flex";
-        mainContent.style.display = "block";
-        heading.innerText = "🎉 생신 축하드려요, 어머님!";
-        message.innerText = "항상 건강하시고 행복 가득한 날이 되시길 바랍니다 💐";
-      } else {
-        alert("아이디 또는 비밀번호가 틀렸어요 😢");
-      }
-    }
-  </script>
+  <footer>
+    © 2025 생일 축하 프로젝트 | 사랑하는 가족과 연인을 위해 💖
+  </footer>
 </body>
 </html>
