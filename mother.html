@@ -231,7 +231,7 @@
     <div class="nav-links">
       <a href="#" id="letterLink">편지</a>
       <a href="#" id="giftLink">선물 뽑기</a>
-      <a href="index.html" id="logoutLink">로그아웃</a>
+      <a href="#" id="logoutLink">로그아웃</a>
     </div>
   </nav>
 
@@ -335,6 +335,24 @@
   closeGiftBtn.addEventListener('click', () => {
     giftPopup.classList.remove('show');
     boxes.forEach(b => b.classList.remove('open'));
+  });
+
+  // 로그아웃 처리
+  const logoutLink = document.getElementById('logoutLink');
+  logoutLink.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // 저장된 데이터 모두 삭제
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // 쿠키 삭제
+    document.cookie.split(";").forEach(function(c) {
+      document.cookie = c.trim().replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
+    });
+
+    // 로그아웃 후 이동할 페이지
+    window.location.href = 'index.html';
   });
 </script>
 </body>
