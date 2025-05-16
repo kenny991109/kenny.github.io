@@ -66,6 +66,43 @@
       width: 100%;
     }
 
+    .home-hero {
+      margin-top: 100px;
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #ffe5ec 0%, #f5f7fa 100%);
+      border-radius: 30px;
+      animation: floatUp 3s ease-out;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .home-hero h1 {
+      font-size: 2.8em;
+      font-weight: 700;
+      color: #d94f70;
+      margin-bottom: 15px;
+    }
+
+    .home-hero p {
+      font-size: 1.2em;
+      color: #444;
+      font-weight: 500;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .container {
       max-width: 780px;
       margin: 50px auto 80px;
@@ -77,94 +114,8 @@
       color: #2c3e50;
     }
 
-    h2 {
-      font-weight: 700;
-      font-size: 2.2em;
-      margin-bottom: 15px;
-      color: #3b5998;
-    }
-
-    p.intro-text {
-      font-size: 1.1em;
-      margin-bottom: 35px;
-      line-height: 1.5;
-      color: #5a6a82;
-    }
-
-    .letter-wrapper {
-      margin-top: 40px;
-      display: none;
-      justify-content: center;
-    }
-
-    .envelope {
-      width: 180px;
-      height: 130px;
-      background: #f9e5e0;
-      border: 2px solid #c9a9a0;
-      border-radius: 12px;
-      position: relative;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(201, 169, 160, 0.4);
-      transition: transform 0.35s ease;
-    }
-
-    .envelope::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 90px solid transparent;
-      border-right: 90px solid transparent;
-      border-bottom: 55px solid #f3c6be;
-      border-radius: 10px 10px 0 0;
-      z-index: 1;
-    }
-
-    .envelope.open {
-      transform: translateY(-70px) rotateX(20deg);
-      box-shadow: 0 15px 30px rgba(201, 169, 160, 0.7);
-    }
-
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      width: 70vw;
-      max-width: 600px;
-      background: #fff8f5;
-      border-radius: 15px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      padding: 30px 40px;
-      opacity: 0;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      overflow-y: auto;
-      color: #5a3e4b;
-      z-index: 1100;
-    }
-
-    .popup.show {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      color: #b4687e;
-      cursor: pointer;
-    }
-
     .gift-picker {
-      margin-top: 60px;
-      display: none;
+      margin-top: 40px;
     }
 
     .gift-picker h3 {
@@ -202,9 +153,44 @@
       box-shadow: 0 10px 25px rgba(201, 169, 160, 0.6);
     }
 
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 70vw;
+      max-width: 600px;
+      background: #fff8f5;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      padding: 30px 40px;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      overflow-y: auto;
+      color: #5a3e4b;
+      z-index: 1100;
+      text-align: center;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: #b4687e;
+      cursor: pointer;
+    }
+
     .gift-image {
-      width: 80px;
-      margin-bottom: 15px;
+      width: 100px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -212,29 +198,16 @@
   <nav>
     <a href="#" class="title-link">엄마 생일 축하드림다! 💐</a>
     <div class="nav-links">
-      <a href="#" id="letterLink">편지</a>
       <a href="#" id="giftLink">선물 뽑기</a>
     </div>
   </nav>
 
+  <div class="home-hero">
+    <h1>Happy Birthday, 엄마! 🎂</h1>
+    <p>당신의 하루가 사랑으로 가득하길 바라요 💖</p>
+  </div>
+
   <div class="container">
-    <h2>엄마 생일을 축하드려요! 🎉</h2>
-    <p class="intro-text">편지와 선물은 상단 메뉴에서 확인해보세요 :)</p>
-
-    <div class="letter-wrapper" id="letterWrapper">
-      <div class="envelope" id="envelope" title="편지봉투 클릭해서 열기"></div>
-    </div>
-
-    <div class="popup" id="letterContent">
-      <button class="close-btn" id="closeLetterBtn">✕</button>
-      <h3>사랑하는 어머니께</h3>
-      <p>
-        엄마, 생신 정말 축하드려요! 항상 저를 위해 애써주시는 모습에 감사하고 사랑합니다.<br><br>
-        앞으로도 건강하시고 행복한 일들만 가득하시길 기도할게요. 오늘 하루, 편안하고 즐겁게 보내셨으면 좋겠습니다.<br><br>
-        사랑하는 건희 드림 💖
-      </p>
-    </div>
-
     <div class="gift-picker" id="giftPicker">
       <h3>🎁 선물 상자를 하나 골라보세요 🎁</h3>
       <div class="boxes">
@@ -246,73 +219,54 @@
 
     <div class="popup" id="giftPopup">
       <button class="close-btn" id="closeGiftBtn">✕</button>
-      <div id="giftPopupContent" style="text-align:center;"></div>
+      <div id="giftPopupContent"></div>
+      <p style="margin-top: 20px; font-size: 0.95em; color: #7a4a3a; font-weight: 500;">
+        해당 사진을 캡쳐해서 보내주시면 해당 선물을 전달드리겠습니다 🎁
+      </p>
     </div>
   </div>
 
-<script>
-  const letterLink = document.getElementById('letterLink');
-  const giftLink = document.getElementById('giftLink');
-  const letterWrapper = document.getElementById('letterWrapper');
-  const giftPicker = document.getElementById('giftPicker');
+  <audio autoplay loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Sergey_Cheremisinov/Soundscapes_vol1/Sergey_Cheremisinov_-_01_-_Morning_Garden.mp3" type="audio/mpeg">
+    브라우저가 오디오를 지원하지 않습니다.
+  </audio>
 
-  letterLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    letterWrapper.style.display = 'flex';
-    giftPicker.style.display = 'none';
-  });
+  <script>
+    const giftLink = document.getElementById('giftLink');
+    const giftPicker = document.getElementById('giftPicker');
 
-  giftLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    letterWrapper.style.display = 'none';
-    giftPicker.style.display = 'block';
-  });
-
-  const envelope = document.getElementById('envelope');
-  const letterContent = document.getElementById('letterContent');
-  const closeLetterBtn = document.getElementById('closeLetterBtn');
-
-  envelope.addEventListener('click', () => {
-    envelope.classList.toggle('open');
-    if (envelope.classList.contains('open')) {
-      letterContent.classList.add('show');
-    } else {
-      letterContent.classList.remove('show');
-    }
-  });
-
-  closeLetterBtn.addEventListener('click', () => {
-    envelope.classList.remove('open');
-    letterContent.classList.remove('show');
-  });
-
-  const boxes = document.querySelectorAll('.box');
-  const giftPopup = document.getElementById('giftPopup');
-  const giftPopupContent = document.getElementById('giftPopupContent');
-  const closeGiftBtn = document.getElementById('closeGiftBtn');
-
-  const gifts = [
-    { text: "💎 마음이 따뜻해지는 10만원권", image: "https://cdn-icons-png.flaticon.com/512/126/126510.png" },
-    { text: "🧨 꽝", image: "https://cdn-icons-png.flaticon.com/512/484/484662.png" },
-    { text: "🎂 맛있는 식사권", image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" }
-  ];
-
-  boxes.forEach((box) => {
-    box.addEventListener('click', () => {
-      box.classList.add('open');
-      const gift = gifts[Math.floor(Math.random() * gifts.length)];
-      giftPopupContent.innerHTML = `
-        <img src="${gift.image}" alt="gift" class="gift-image" />
-        <h3>${gift.text}</h3>
-      `;
-      giftPopup.classList.add('show');
+    giftLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: giftPicker.offsetTop, behavior: 'smooth' });
     });
-  });
 
-  closeGiftBtn.addEventListener('click', () => {
-    giftPopup.classList.remove('show');
-    boxes.forEach(box => box.classList.remove('open'));
-  });
-</script>
+    const boxes = document.querySelectorAll('.box');
+    const giftPopup = document.getElementById('giftPopup');
+    const giftPopupContent = document.getElementById('giftPopupContent');
+    const closeGiftBtn = document.getElementById('closeGiftBtn');
+
+    const gifts = [
+      { text: "💎 마음이 따뜻해지는 10만원권", image: "https://cdn-icons-png.flaticon.com/512/888/888064.png" },
+      { text: "🧨 꽝! 다음 기회를 노려보세요!", image: "https://cdn-icons-png.flaticon.com/512/2917/2917991.png" },
+      { text: "🍰 맛있는 식사권", image: "https://cdn-icons-png.flaticon.com/512/3209/3209020.png" }
+    ];
+
+    boxes.forEach((box) => {
+      box.addEventListener('click', () => {
+        box.classList.add('open');
+        const gift = gifts[Math.floor(Math.random() * gifts.length)];
+        giftPopupContent.innerHTML = `
+          <img src="${gift.image}" alt="gift" class="gift-image" />
+          <h3>${gift.text}</h3>
+        `;
+        giftPopup.classList.add('show');
+      });
+    });
+
+    closeGiftBtn.addEventListener('click', () => {
+      giftPopup.classList.remove('show');
+      boxes.forEach(box => box.classList.remove('open'));
+    });
+  </script>
 </body>
 </html>
