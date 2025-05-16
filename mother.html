@@ -6,7 +6,6 @@
   <title>엄마 생일 축하드림다! 💐</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
-
     * { box-sizing: border-box; }
 
     body {
@@ -129,14 +128,13 @@
       box-shadow: 0 15px 30px rgba(201, 169, 160, 0.7);
     }
 
-    .letter-content {
+    .popup {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
       width: 70vw;
       max-width: 600px;
-      height: 60vh;
       background: #fff8f5;
       border-radius: 15px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.3);
@@ -148,12 +146,12 @@
       z-index: 1100;
     }
 
-    .letter-content.show {
+    .popup.show {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
     }
 
-    .close-letter {
+    .close-btn {
       position: absolute;
       top: 15px;
       right: 20px;
@@ -203,11 +201,9 @@
       box-shadow: 0 10px 25px rgba(201, 169, 160, 0.6);
     }
 
-    .gift-result {
-      font-size: 1.2em;
-      color: #5a3e4b;
-      min-height: 48px;
-      font-weight: 600;
+    .gift-image {
+      width: 80px;
+      margin-bottom: 15px;
     }
   </style>
 </head>
@@ -228,8 +224,8 @@
       <div class="envelope" id="envelope" title="편지봉투 클릭해서 열기"></div>
     </div>
 
-    <div class="letter-content" id="letterContent">
-      <button class="close-letter" id="closeLetterBtn">✕</button>
+    <div class="popup" id="letterContent">
+      <button class="close-btn" id="closeLetterBtn">✕</button>
       <h3>사랑하는 어머니께</h3>
       <p>
         엄마, 생신 정말 축하드려요! 항상 저를 위해 애써주시는 모습에 감사하고 사랑합니다.<br><br>
@@ -245,11 +241,16 @@
         <div class="box" data-index="1">상자 2</div>
         <div class="box" data-index="2">상자 3</div>
       </div>
-      <div class="gift-result" id="giftResult"></div>
+    </div>
+
+    <div class="popup" id="giftPopup">
+      <button class="close-btn" id="closeGiftBtn">✕</button>
+      <div id="giftPopupContent" style="text-align:center;"></div>
     </div>
   </div>
 
 <script>
+  // 내비게이션 탭 전환
   const letterLink = document.getElementById('letterLink');
   const giftLink = document.getElementById('giftLink');
   const letterWrapper = document.getElementById('letterWrapper');
@@ -267,6 +268,7 @@
     giftPicker.style.display = 'block';
   });
 
+  // 편지 팝업
   const envelope = document.getElementById('envelope');
   const letterContent = document.getElementById('letterContent');
   const closeLetterBtn = document.getElementById('closeLetterBtn');
@@ -285,26 +287,36 @@
     letterContent.classList.remove('show');
   });
 
+  // 선물 팝업
   const boxes = document.querySelectorAll('.box');
-  const giftResult = document.getElementById('giftResult');
+  const giftPopup = document.getElementById('giftPopup');
+  const giftPopupContent = document.getElementById('giftPopupContent');
+  const closeGiftBtn = document.getElementById('closeGiftBtn');
 
   const gifts = [
-    "💎 예쁜 목걸이",
-    "🧣 따뜻한 담요",
-    "🎂 맛있는 케이크",
-    "🧴 향기로운 바디로션",
-    "🌹 꽃다발과 편지",
-    "🍰 고급 디저트 세트"
+    { text: "💎 예쁜 목걸이", image: "https://cdn-icons-png.flaticon.com/512/888/888064.png" },
+    { text: "🧣 따뜻한 담요", image: "https://cdn-icons-png.flaticon.com/512/2917/2917991.png" },
+    { text: "🎂 맛있는 케이크", image: "https://cdn-icons-png.flaticon.com/512/3209/3209020.png" },
+    { text: "🧴 향기로운 바디로션", image: "https://cdn-icons-png.flaticon.com/512/1037/1037859.png" },
+    { text: "🌹 꽃다발과 편지", image: "https://cdn-icons-png.flaticon.com/512/3082/3082030.png" },
+    { text: "🍰 고급 디저트 세트", image: "https://cdn-icons-png.flaticon.com/512/2530/2530167.png" }
   ];
 
   boxes.forEach((box) => {
     box.addEventListener('click', () => {
       box.classList.add('open');
-      setTimeout(() => box.classList.remove('open'), 1000);
-
-      const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
-      giftResult.textContent = `축하해요! 당신의 선물은 "${randomGift}" 입니다 🎉`;
+      const gift = gifts[Math.floor(Math.random() * gifts.length)];
+      giftPopupContent.innerHTML = `
+        <img src="${gift.image}" alt="gift" class="gift-image" />
+        <h3>${gift.text}</h3>
+      `;
+      giftPopup.classList.add('show');
     });
+  });
+
+  closeGiftBtn.addEventListener('click', () => {
+    giftPopup.classList.remove('show');
+    boxes.forEach(box => box.classList.remove('open'));
   });
 </script>
 </body>
