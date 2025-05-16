@@ -223,7 +223,7 @@
     <div class="nav-links">
       <a href="moodTest.html">기분 테스트 😊</a>
       <a href="chatbot.html">AI 감정 챗봇 💬</a>
-      <button id="logoutBtn">로그아웃</button>
+      <button id="homeBtn">홈으로</button>
     </div>
   </nav>
 
@@ -313,10 +313,8 @@
   </script>
 
   <script>
-    // 로그아웃 버튼 클릭 이벤트
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-      alert('로그아웃 처리되었습니다.');
-      // 로그아웃 후 index.html로 이동
+    // "홈으로" 버튼 클릭 시 index.html로 이동
+    document.getElementById('homeBtn').addEventListener('click', function() {
       window.location.href = 'index.html';
     });
   </script>
