@@ -50,6 +50,12 @@
       padding: 5px;
       position: relative;
       cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #c1d3f4;
     }
 
     .nav-links a::after {
@@ -67,19 +73,13 @@
       width: 100%;
     }
 
-    .logout-btn {
-      background-color: #d9534f;
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      font-weight: 600;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    #logoutLink {
+      color: #ffdddd;
+      font-weight: 700;
     }
 
-    .logout-btn:hover {
-      background-color: #c9302c;
+    #logoutLink:hover {
+      color: #ffaaaa;
     }
 
     .container {
@@ -211,6 +211,7 @@
       color: #7a4a3a;
       font-size: 1.2em;
       transition: all 0.4s ease;
+      user-select: none;
     }
 
     .box.open {
@@ -230,7 +231,7 @@
     <div class="nav-links">
       <a href="#" id="letterLink">편지</a>
       <a href="#" id="giftLink">선물 뽑기</a>
-      <button class="logout-btn" id="logoutBtn">로그아웃</button>
+      <a href="index.html" id="logoutLink">로그아웃</a>
     </div>
   </nav>
 
@@ -309,18 +310,23 @@
   const closeGiftBtn = document.getElementById('closeGiftBtn');
 
   const gifts = [
-    { text: "💎 마음이 따뜻해지는 10만원권", image: "https://cdn-icons-png.flaticon.com/512/126/126510.png" },
-    { text: "🧨 꽝", image: "https://cdn-icons-png.flaticon.com/512/484/484662.png" },
-    { text: "🎂 맛있는 식사권", image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" }
+    { name: '예쁜 꽃다발', img: 'https://cdn-icons-png.flaticon.com/512/616/616408.png' },
+    { name: '맛있는 케이크', img: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png' },
+    { name: '행복한 하루', img: 'https://cdn-icons-png.flaticon.com/512/616/616494.png' }
   ];
 
-  boxes.forEach((box) => {
+  boxes.forEach(box => {
     box.addEventListener('click', () => {
+      if (box.classList.contains('open')) return;
+      boxes.forEach(b => b.classList.remove('open'));
       box.classList.add('open');
-      const gift = gifts[Math.floor(Math.random() * gifts.length)];
+
+      const idx = parseInt(box.dataset.index);
+      const gift = gifts[idx];
+
       giftPopupContent.innerHTML = `
-        <img src="${gift.image}" alt="gift" class="gift-image" />
-        <h3>${gift.text}</h3>
+        <img src="${gift.img}" alt="${gift.name}" class="gift-image" />
+        <h4>선물은 "${gift.name}"입니다!</h4>
       `;
       giftPopup.classList.add('show');
     });
@@ -328,15 +334,7 @@
 
   closeGiftBtn.addEventListener('click', () => {
     giftPopup.classList.remove('show');
-    boxes.forEach(box => box.classList.remove('open'));
-  });
-
-  // 🔐 로그아웃 기능
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    if (confirm('정말 로그아웃하시겠습니까?')) {
-      alert('로그아웃 되었습니다.');
-      window.location.href = 'login.html'; // 로그인 페이지로 이동 (URL은 필요에 따라 수정)
-    }
+    boxes.forEach(b => b.classList.remove('open'));
   });
 </script>
 </body>
