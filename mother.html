@@ -93,7 +93,7 @@
 
     .letter-wrapper {
       margin-top: 40px;
-      display: flex;
+      display: none;
       justify-content: center;
     }
 
@@ -164,6 +164,7 @@
 
     .gift-picker {
       margin-top: 60px;
+      display: none;
     }
 
     .gift-picker h3 {
@@ -202,7 +203,7 @@
     }
 
     .gift-image {
-      width: 100px;
+      width: 80px;
       margin-bottom: 15px;
     }
   </style>
@@ -217,8 +218,8 @@
   </nav>
 
   <div class="container">
-    <h2>사랑하는 엄마께</h2>
-    <p class="intro-text">엄마, 생신 진심으로 축하드려요! 항상 건강하시고 행복하세요.</p>
+    <h2>엄마 생일을 축하드려요! 🎉</h2>
+    <p class="intro-text">편지와 선물은 상단 메뉴에서 확인해보세요 :)</p>
 
     <div class="letter-wrapper" id="letterWrapper">
       <div class="envelope" id="envelope" title="편지봉투 클릭해서 열기"></div>
@@ -234,7 +235,7 @@
       </p>
     </div>
 
-    <div class="gift-picker" id="giftPicker" style="display: none;">
+    <div class="gift-picker" id="giftPicker">
       <h3>🎁 선물 상자를 하나 골라보세요 🎁</h3>
       <div class="boxes">
         <div class="box" data-index="0">상자 1</div>
@@ -250,7 +251,6 @@
   </div>
 
 <script>
-  // 내비게이션 탭 전환
   const letterLink = document.getElementById('letterLink');
   const giftLink = document.getElementById('giftLink');
   const letterWrapper = document.getElementById('letterWrapper');
@@ -268,7 +268,6 @@
     giftPicker.style.display = 'block';
   });
 
-  // 편지 팝업
   const envelope = document.getElementById('envelope');
   const letterContent = document.getElementById('letterContent');
   const closeLetterBtn = document.getElementById('closeLetterBtn');
@@ -287,25 +286,15 @@
     letterContent.classList.remove('show');
   });
 
-  // 선물 팝업
   const boxes = document.querySelectorAll('.box');
   const giftPopup = document.getElementById('giftPopup');
   const giftPopupContent = document.getElementById('giftPopupContent');
   const closeGiftBtn = document.getElementById('closeGiftBtn');
 
   const gifts = [
-    {
-      text: "💎 마음이 따뜻해지는 10만원권",
-      image: "https://cdn-icons-png.flaticon.com/512/4290/4290854.png" // 돈 이미지
-    },
-    {
-      text: "🧣 꽝!",
-      image: "https://cdn-icons-png.flaticon.com/512/592/592063.png" // 폭탄 이미지
-    },
-    {
-      text: "🎂 맛있는 식사권",
-      image: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" // 음식 이미지
-    }
+    { text: "💎 마음이 따뜻해지는 10만원권", image: "https://cdn-icons-png.flaticon.com/512/126/126510.png" },
+    { text: "🧨 꽝", image: "https://cdn-icons-png.flaticon.com/512/484/484662.png" },
+    { text: "🎂 맛있는 식사권", image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" }
   ];
 
   boxes.forEach((box) => {
