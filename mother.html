@@ -198,6 +198,11 @@
       transition: all 0.4s ease;
     }
 
+    .box.open {
+      transform: rotateX(15deg) translateY(-10px);
+      box-shadow: 0 10px 25px rgba(201, 169, 160, 0.6);
+    }
+
     .gift-result {
       font-size: 1.2em;
       color: #5a3e4b;
@@ -294,6 +299,9 @@
 
   boxes.forEach((box) => {
     box.addEventListener('click', () => {
+      box.classList.add('open');
+      setTimeout(() => box.classList.remove('open'), 1000);
+
       const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
       giftResult.textContent = `축하해요! 당신의 선물은 "${randomGift}" 입니다 🎉`;
     });
