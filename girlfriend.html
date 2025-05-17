@@ -58,6 +58,21 @@
     .nav-links a:hover::after {
       width: 100%;
     }
+    .logout-btn {
+      background-color: #d9534f;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 0.9em;
+    }
+
+    .logout-btn:hover {
+      background-color: #c9302c;
+    }
     .container {
       max-width: 800px;
       margin: 50px auto;
@@ -182,6 +197,7 @@
     <div class="nav-links">
       <a href="moodTest.html">기분 테스트 😊</a>
       <a href="chatbot.html">AI 감정 챗봇 💬</a>
+      <button class="logout-btn" id="logoutBtn">로그아웃</button>
     </div>
   </nav>
 
@@ -243,6 +259,14 @@
         player.playVideo();
       }
     }
+
+    // 🔐 로그아웃 기능 (index.html 로 이동)
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      if (confirm('정말 로그아웃하시겠습니까?')) {
+        alert('로그아웃 되었습니다.');
+        window.location.href = 'index.html'; // index.html 로 이동
+      }
+    });
   </script>
 </body>
 </html>
