@@ -24,27 +24,65 @@
       padding: 50px;
       width: 80%;
       max-width: 700px;
+      text-align: center; /* 초기 봉투 중앙 정렬 */
+    }
+    .envelope-wrapper {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .envelope-wrapper:hover {
+      transform: scale(1.05);
+    }
+    .envelope {
+      width: 180px;
+      height: 130px;
+      background: #f9e5e0;
+      border: 2px solid #c9a9a0;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 6px 12px rgba(201, 169, 160, 0.4);
+      margin: 0 auto 30px; /* 봉투 중앙 정렬 및 아래 간격 */
+    }
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 90px solid transparent;
+      border-right: 90px solid transparent;
+      border-bottom: 55px solid #f3c6be;
+      border-radius: 10px 10px 0 0;
+      z-index: 1;
+      transform-origin: top;
+      transition: transform 0.5s ease-in-out;
+    }
+    .envelope.open::before {
+      transform: rotateX(180deg) translateY(-5px);
+    }
+    .letter-content {
+      display: none; /* 초기 숨김 */
+      line-height: 1.8;
+      font-size: 1.1em;
+      margin-top: 30px;
+      white-space: pre-line;
+      text-align: left; /* 편지 내용 왼쪽 정렬 */
     }
     h2 {
       color: #ff66b2;
-      text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       font-size: 2.5em;
-    }
-    .letter-body {
-      line-height: 1.8;
-      font-size: 1.1em;
-      margin-bottom: 40px;
-      white-space: pre-line; /* 줄 바꿈 유지 */
     }
     .sender {
       text-align: right;
       font-style: italic;
       color: #888;
+      margin-top: 30px;
     }
     .back-button {
       display: block;
-      margin-top: 30px;
+      margin-top: 40px;
       padding: 10px 20px;
       background-color: #ff66b2;
       color: white;
@@ -62,24 +100,43 @@
 </head>
 <body>
   <div class="letter-container">
-    <h2>💖 수현이에게</h2>
-    <div class="letter-body">
-      사랑하는 수현아,<br><br>
-      너의 스무** 번째 생일을 진심으로 축하해! 🎉<br>
-      우리가 함께한 시간들이 주마등처럼 스쳐 지나가네. <br>
-      처음 만났던 날의 설렘부터, 함께 웃고 울었던 소중한 추억들까지...<br>
-      네 옆에 있으면 언제나 따뜻하고 행복해. 😊<br><br>
-      네 밝은 미소는 나에게 큰 힘이 되고,<br>
-      따뜻한 마음은 늘 감동을 줘.<br>
-      가끔은 투정도 부리지만, 그 모습마저도 사랑스러워. 🥰<br><br>
-      앞으로도 지금처럼 예쁘고 건강하게, <br>
-      네가 원하는 모든 꿈들을 이루어나가길 응원할게!<br>
-      항상 네 곁에서 힘이 되어주고, 행복을 함께하는 사람이 되고 싶어.<br><br>
-      오늘 하루, 세상에서 가장 행복한 생일 보내길 바라!<br>
-      사랑해, 수현아! 💖
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="envelope" id="envelope"></div>
+      <h2>💌 편지를 열어봐!</h2>
     </div>
-    <div class="sender">너의 OO이가</div>
+    <div id="letterContent" class="letter-content">
+      <h2>💖 수현이에게</h2>
+      <div class="letter-body">
+        사랑하는 수현아,<br><br>
+        너의 스무** 번째 생일을 진심으로 축하해! 🎉<br>
+        우리가 함께한 시간들이 주마등처럼 스쳐 지나가네. <br>
+        처음 만났던 날의 설렘부터, 함께 웃고 울었던 소중한 추억들까지...<br>
+        네 옆에 있으면 언제나 따뜻하고 행복해. 😊<br><br>
+        네 밝은 미소는 나에게 큰 힘이 되고,<br>
+        따뜻한 마음은 늘 감동을 줘.<br>
+        가끔은 투정도 부리지만, 그 모습마저도 사랑스러워. 🥰<br><br>
+        앞으로도 지금처럼 예쁘고 건강하게, <br>
+        네가 원하는 모든 꿈들을 이루어나가길 응원할게!<br>
+        항상 네 곁에서 힘이 되어주고, 행복을 함께하는 사람이 되고 싶어.<br><br>
+        오늘 하루, 세상에서 가장 행복한 생일 보내길 바라!<br>
+        사랑해, 수현아! 💖
+      </div>
+      <div class="sender">너의 OO이가</div>
+    </div>
     <a href="girlfriend.html" class="back-button">🎉 생일 홈으로 돌아가기</a>
   </div>
+
+  <script>
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const envelope = document.getElementById('envelope');
+    const letterContent = document.getElementById('letterContent');
+    const initialHeading = document.querySelector('.letter-container > h2');
+
+    envelopeWrapper.addEventListener('click', () => {
+      envelope.classList.add('open');
+      letterContent.style.display = 'block';
+      initialHeading.style.display = 'none'; // "편지를 열어봐!" 문구 숨기기
+    });
+  </script>
 </body>
 </html>
