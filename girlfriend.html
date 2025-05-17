@@ -1,191 +1,546 @@
 <!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>수현아 생일 축하해!! 💖</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(to bottom, #ffe6f0, #fff);
-      color: #444;
-      overflow-x: hidden;
-      height: 100%;
-    }
-    nav {
-      background-color: #ff66b2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav a.title-link {
-      color: white;
-      text-decoration: none;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .nav-links {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-    }
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      padding: 5px;
-    }
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 0;
-      height: 2px;
-      background-color: white;
-      transition: width 0.3s;
-    }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    .logout-btn {
-      background-color: #d9534f;
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 0.9em;
-    }
 
-    .logout-btn:hover {
-      background-color: #c9302c;
-    }
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px; /* 모바일에서 여백 확보 */
-      background-color: #fffafa;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
-      text-align: center;
-    }
-    h2 {
-      font-size: 2em;
-      margin-bottom: 10px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    #message {
-      font-size: 1.1em; /* 모바일에서 약간 작게 */
-      margin: 20px 0 30px;
-      animation: typing 4s steps(40, end);
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid pink;
-    }
-    .music-section {
-      margin: 30px 0;
-    }
-    .music-section p {
-      font-size: 1em; /* 모바일에서 약간 작게 */
-    }
-    .music-section button {
-      background-color: #ffe0ec;
-      color: #ff3385;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 15px;
-      margin: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 0.9em; /* 모바일에서 약간 작게 */
-    }
-    .music-section button:hover {
-      background-color: #ffb3d9;
-    }
-    .photo-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .photo-gallery img {
-      width: calc(50% - 5px); /* 모바일에서 두 개씩 */
-      height: auto; /* 비율 유지 */
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    }
-    footer {
-      margin-top: 50px;
-      text-align: center;
-      color: #aaa;
-      font-size: 0.8em; /* 모바일에서 더 작게 */
-      padding: 10px; /* 모바일에서 여백 확보 */
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .heart {
-      position: fixed;
-      top: -30px;
-      font-size: 24px; /* 모바일에서 약간 작게 */
-      animation: fallHeart linear infinite;
-      pointer-events: auto;
-      z-index: 20;
-      user-select: none;
-      animation-duration: 5s;
-      animation-timing-function: ease-in-out;
-    }
-    @keyframes fallHeart {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) scale(1.2);
-        opacity: 0;
-      }
-    }
-    .heart.clicked {
-      animation: explode 0.5s forwards;
-    }
-    @keyframes explode {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(3);
-        opacity: 0;
-      }
-    }
+  <meta charset="UTF-8" />
 
-    /* Mobile 화면에 대한 스타일 */
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 15px;
-      }
-      nav a.title-link {
-        font-size: 1.3em;
-        margin-bottom: 10
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>수현아 생일 축하해!! 💖</title>
+
+  <style>
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+    body {
+
+      margin: 0;
+
+      font-family: 'Pretendard', sans-serif;
+
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+
+      color: #444;
+
+      overflow-x: hidden;
+
+      height: 100%;
+
+    }
+
+    nav {
+
+      background-color: #ff66b2;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      padding: 15px 30px;
+
+      color: white;
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+    }
+
+    nav a.title-link {
+
+      color: white;
+
+      text-decoration: none;
+
+      font-size: 1.5em;
+
+      font-weight: bold;
+
+    }
+
+    .nav-links {
+
+      display: flex;
+
+      gap: 25px;
+
+      align-items: center;
+
+    }
+
+    .nav-links a {
+
+      color: white;
+
+      text-decoration: none;
+
+      font-weight: bold;
+
+      position: relative;
+
+      padding: 5px;
+
+    }
+
+    .nav-links a::after {
+
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+
+      bottom: -3px;
+
+      width: 0;
+
+      height: 2px;
+
+      background-color: white;
+
+      transition: width 0.3s;
+
+    }
+
+    .nav-links a:hover::after {
+
+      width: 100%;
+
+    }
+
+    .logout-btn {
+
+      background-color: #d9534f;
+
+      border: none;
+
+      color: white;
+
+      padding: 6px 12px;
+
+      font-weight: bold;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s;
+
+      font-size: 0.9em;
+
+    }
+
+
+
+    .logout-btn:hover {
+
+      background-color: #c9302c;
+
+    }
+
+    .container {
+
+      max-width: 800px;
+
+      margin: 50px auto;
+
+      padding: 40px;
+
+      background-color: #fffafa;
+
+      border-radius: 20px;
+
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+
+      text-align: center;
+
+    }
+
+    h2 {
+
+      font-size: 2em;
+
+      margin-bottom: 10px;
+
+      animation: fadeIn 1.5s ease-in-out;
+
+    }
+
+    #message {
+
+      font-size: 1.2em;
+
+      margin: 20px 0 30px;
+
+      animation: typing 4s steps(40, end);
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      border-right: 3px solid pink;
+
+    }
+
+    .music-section {
+
+      margin: 30px 0;
+
+    }
+
+    .music-section button {
+
+      background-color: #ffe0ec;
+
+      color: #ff3385;
+
+      border: none;
+
+      border-radius: 5px;
+
+      padding: 8px 15px;
+
+      margin: 5px;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s;
+
+    }
+
+    .music-section button:hover {
+
+      background-color: #ffb3d9;
+
+    }
+
+    .photo-gallery {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+    }
+
+    .photo-gallery img {
+
+      width: 150px;
+
+      height: 150px;
+
+      object-fit: cover;
+
+      border-radius: 15px;
+
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+
+    }
+
+    footer {
+
+      margin-top: 50px;
+
+      text-align: center;
+
+      color: #aaa;
+
+      font-size: 0.9em;
+
+    }
+
+    @keyframes typing {
+
+      from { width: 0; }
+
+      to { width: 100%; }
+
+    }
+
+    @keyframes fadeIn {
+
+      from { opacity: 0; transform: translateY(-20px); }
+
+      to { opacity: 1; transform: translateY(0); }
+
+    }
+
+    .heart {
+
+      position: fixed;
+
+      top: -30px;
+
+      font-size: 30px;
+
+      animation: fallHeart linear infinite;
+
+      pointer-events: auto;
+
+      z-index: 20;
+
+      user-select: none;
+
+      animation-duration: 5s;
+
+      animation-timing-function: ease-in-out;
+
+    }
+
+    @keyframes fallHeart {
+
+      0% {
+
+        transform: translateY(0) scale(1);
+
+        opacity: 1;
+
+      }
+
+      100% {
+
+        transform: translateY(100vh) scale(1.2);
+
+        opacity: 0;
+
+      }
+
+    }
+
+    .heart.clicked {
+
+      animation: explode 0.5s forwards;
+
+    }
+
+    @keyframes explode {
+
+      0% {
+
+        transform: scale(1);
+
+        opacity: 1;
+
+      }
+
+      100% {
+
+        transform: scale(3);
+
+        opacity: 0;
+
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .nav-links {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+        margin-top: 10px;
+
+      }
+
+      nav {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+      }
+
+      .container {
+
+        width: 100%;
+
+        padding: 20px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <nav>
+
+    <a href="girlfriend.html" class="title-link">🎉 수현이의 생일 홈</a>
+
+    <div class="nav-links">
+
+      <a href="letter.html">💌 편지</a>
+
+      <a href="moodTest.html">기분 테스트 😊</a>
+
+      <a href="chatbot.html">AI 감정 챗봇 💬</a>
+
+      <button class="logout-btn" id="logoutBtn">로그아웃</button>
+
+    </div>
+
+  </nav>
+
+
+
+  <div class="container">
+
+    <h2>🎂 생일 축하해, 수현아!</h2>
+
+    <div id="message">오늘 하루도 너처럼 빛나는 날이 되길 바래 ✨</div>
+
+    <div class="music-section">
+
+      <p>🎵 생일 노래를 들어봐!</p>
+
+      <button onclick="seekTo(0)">인트로부터 🎶</button>
+
+      <button onclick="seekTo(30)">30초부터 💫</button>
+
+      <button onclick="seekTo(60)">1분부터 🌟</button>
+
+    </div>
+
+    <div class="photo-gallery">
+
+      <img src="https://placekitten.com/200/200" alt="기억1" />
+
+      <img src="https://placekitten.com/201/200" alt="기억2" />
+
+      <img src="https://placekitten.com/202/200" alt="기억3" />
+
+    </div>
+
+  </div>
+
+
+
+  <div id="player" style="display: none;"></div>
+
+
+
+  <footer>
+
+    © 2025 생일 축하 프로젝트 | 사랑하는 OO가 💖
+
+  </footer>
+
+
+
+  <script>
+
+    function createHeart() {
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerText = "💖";
+
+      heart.style.left = Math.random() * window.innerWidth + "px";
+
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+      heart.addEventListener("click", () => {
+
+        heart.classList.add("clicked");
+
+        setTimeout(() => { heart.remove(); }, 500);
+
+      });
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => { heart.remove(); }, 5000);
+
+    }
+
+    setInterval(createHeart, 1000);
+
+  </script>
+
+
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+
+
+  <script>
+
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+
+      player = new YT.Player('player', {
+
+        height: '0',
+
+        width: '0',
+
+        videoId: 'hoLxuyV9qz8',
+
+        playerVars: { 'autoplay': 0, 'controls': 0, 'mute': 0 },
+
+        events: { 'onReady': function(event) {} }
+
+      });
+
+    }
+
+    function seekTo(seconds) {
+
+      if (player && player.seekTo) {
+
+        player.seekTo(seconds, true);
+
+        player.playVideo();
+
+      }
+
+    }
+
+
+
+    // 🔐 로그아웃 기능 (index.html 로 이동)
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+
+      if (confirm('정말 로그아웃하시겠습니까?')) {
+
+        alert('로그아웃 되었습니다.');
+
+        window.location.href = 'index.html'; // index.html 로 이동
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>
+
