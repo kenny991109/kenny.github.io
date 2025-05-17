@@ -96,12 +96,45 @@
     .back-button:hover {
       background-color: #ff3385;
     }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 70vw;
+      max-width: 600px;
+      background: #fff8f5;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      padding: 30px 40px;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      overflow-y: auto;
+      color: #5a3e4b;
+      z-index: 1100;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: #b4687e;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="letter-container">
     <div class="envelope-wrapper" id="envelopeWrapper">
-      <div class="envelope" id="envelope"></div>
+      <div class="envelope" id="envelope" title="편지봉투 클릭해서 열기"></div>
       <h2>💌 편지를 열어봐!</h2>
     </div>
     <div id="letterContent" class="letter-content">
