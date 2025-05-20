@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>자존감 박수 타임 👏</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
+      background: linear-gradient(to top, #fff0f5, #ffe4e1);
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 80px;
+      font-size: 2em;
+      color: #d63384;
+    }
+
+    #message {
+      margin: 20px auto;
+      font-size: 1.5em;
+      color: #555;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .clap-btn {
+      background-color: #ff99cc;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s;
+    }
+
+    .clap-btn:hover {
+      background-color: #ff66b2;
+    }
+
+    .clap-animation {
+      font-size: 5em;
+      margin: 40px 0;
+      display: inline-block;
+      animation: clap 0.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes clap {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+      100% {
+        transform: scale(1.2) rotate(10deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>👏 자존감 충전소 👏</h1>
+  <div id="message">마음이 무거울 땐 박수를 쳐봐!</div>
+  <div id="clapArea" style="margin-top: 30px;"></div>
+  <button class="clap-btn" onclick="startClap()">나에게 박수 보내기 🎉</button>
+
+  <audio id="clapSound" src="clap.mp3" preload="auto"></audio>
+
+  <script>
+    function startClap() {
+      const sound = document.getElementById("clapSound");
+      sound.currentTime = 0;
+      sound.play();
+
+      const area = document.getElementById("clapArea");
+      area.innerHTML = '<div class="clap-animation">👏</div><div class="clap-animation">👏</div>';
+
+      const msg = document.getElementById("message");
+      msg.innerText = getRandomMessage();
+
+      // 4초 후 멈춤
+      setTimeout(() => {
+        area.innerHTML = "";
+      }, 4000);
+    }
+
+    function getRandomMessage() {
+      const messages = [
+        "수현이는 충분히 소중한 사람이야 💖",
+        "널 응원해! 잘하고 있어! 🌈",
+        "오늘도 수고했어 👏",
+        "자신감을 가져도 돼! 넌 멋져 💎",
+        "항상 너의 편이야 💕"
+      ];
+      return messages[Math.floor(Math.random() * messages.length)];
+    }
+  </script>
+
+</body>
+</html>
