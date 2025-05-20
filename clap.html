@@ -3,103 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>자존감 박수 타임 👏</title>
+  <title>👏 자존감 박수 응원 👏</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(to top, #fff0f5, #ffe4e1);
+      background: linear-gradient(to right, #ffe6f0, #ffe6fa);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       text-align: center;
     }
 
     h1 {
-      margin-top: 80px;
-      font-size: 2em;
-      color: #d63384;
+      font-size: 2.5em;
+      color: #ff3399;
+      margin-bottom: 10px;
     }
 
-    #message {
-      margin: 20px auto;
-      font-size: 1.5em;
-      color: #555;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    .clap-btn {
-      background-color: #ff99cc;
-      border: none;
-      color: white;
-      padding: 15px 30px;
+    p {
       font-size: 1.2em;
-      border-radius: 50px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .clap-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .clap-animation {
+      font-size: 5em;
+      animation: clap-motion 0.6s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    .clap-animation:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes clap-motion {
+      0%   { transform: rotate(0deg) scale(1); }
+      20%  { transform: rotate(-15deg) scale(1.05); }
+      40%  { transform: rotate(15deg) scale(1.05); }
+      60%  { transform: rotate(-10deg) scale(1.02); }
+      80%  { transform: rotate(10deg) scale(1.02); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    button {
+      margin-top: 40px;
+      background-color: #ff99cc;
+      color: white;
+      font-size: 1.2em;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 30px;
       transition: background-color 0.3s;
     }
 
-    .clap-btn:hover {
-      background-color: #ff66b2;
+    button:hover {
+      background-color: #ff66a3;
     }
 
-  .clap-animation {
-    font-size: 5em;
-    margin: 40px 10px;
-    display: inline-block;
-    animation: clap-motion 0.6s ease-in-out infinite;
-    transform-origin: bottom center;
-  }
-
-  .clap-animation:nth-child(2) {
-    animation-delay: 0.3s; /* 번갈아 박수 효과 */
-  }
-
-  @keyframes clap-motion {
-    0%   { transform: rotate(0deg) scale(1); }
-    20%  { transform: rotate(-15deg) scale(1.05); }
-    40%  { transform: rotate(15deg) scale(1.05); }
-    60%  { transform: rotate(-10deg) scale(1.02); }
-    80%  { transform: rotate(10deg) scale(1.02); }
-    100% { transform: rotate(0deg) scale(1); }
-  }
-</style>
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>👏 자존감 충전소 👏</h1>
-  <div id="message">마음이 무거울 땐 박수를 쳐봐!</div>
-  <div id="clapArea" style="margin-top: 30px;"></div>
-  <button class="clap-btn" onclick="startClap()">나에게 박수 보내기 🎉</button>
+  <h1>👏 수현이 파이팅! 👏</h1>
+  <p>자존감이 떨어질 때마다 이 페이지에 와서 박수를 받아보자!</p>
+
+  <div class="clap-container">
+    <div class="clap-animation">👏</div>
+    <div class="clap-animation">👏</div>
+  </div>
+
+  <button id="playSound">박수 소리 듣기 🔊</button>
+
+  <footer>
+    © 2025 자존감 응원 페이지 | 사랑하는 OO가 💖
+  </footer>
 
   <audio id="clapSound" src="clap.mp3" preload="auto"></audio>
 
   <script>
-    function startClap() {
-      const sound = document.getElementById("clapSound");
-      sound.currentTime = 0;
-      sound.play();
+    const playBtn = document.getElementById('playSound');
+    const audio = document.getElementById('clapSound');
 
-      const area = document.getElementById("clapArea");
-      area.innerHTML = '<div class="clap-animation">👏</div><div class="clap-animation">👏</div>';
-
-      const msg = document.getElementById("message");
-      msg.innerText = getRandomMessage();
-
-      // 4초 후 멈춤
-      setTimeout(() => {
-        area.innerHTML = "";
-      }, 4000);
-    }
-
-    function getRandomMessage() {
-      const messages = [
-        "수현이는 충분히 소중한 사람이야 💖",
-        "널 응원해! 잘하고 있어! 🌈",
-        "오늘도 수고했어 👏",
-        "자신감을 가져도 돼! 넌 멋져 💎",
-        "항상 너의 편이야 💕"
-      ];
-      return messages[Math.floor(Math.random() * messages.length)];
-    }
+    playBtn.addEventListener('click', () => {
+      audio.currentTime = 0;
+      audio.play();
+    });
   </script>
 
 </body>
